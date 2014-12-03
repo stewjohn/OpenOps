@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Aws vpc:</strong>
+  <%= @aws_vpc_tag.aws_vpc_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @aws_vpc_tag.name %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @aws_vpc_tag.value %>
+</p>
+
+<%= link_to 'Edit', edit_aws_vpc_tag_path(@aws_vpc_tag) %> |
+<%= link_to 'Back', aws_vpc_tags_path %>

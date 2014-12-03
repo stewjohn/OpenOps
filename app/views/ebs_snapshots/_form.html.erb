@@ -1,0 +1,65 @@
+<%= form_for(@ebs_snapshot) do |f| %>
+  <% if @ebs_snapshot.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ebs_snapshot.errors.count, "error") %> prohibited this ebs_snapshot from being saved:</h2>
+
+      <ul>
+      <% @ebs_snapshot.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :aws_account_id %><br>
+    <%= f.text_field :aws_account_id %>
+  </div>
+  <div class="field">
+    <%= f.label :aws_region_id %><br>
+    <%= f.number_field :aws_region_id %>
+  </div>
+  <div class="field">
+    <%= f.label :snapshot_id %><br>
+    <%= f.text_field :snapshot_id %>
+  </div>
+  <div class="field">
+    <%= f.label :volume_id %><br>
+    <%= f.text_field :volume_id %>
+  </div>
+  <div class="field">
+    <%= f.label :state %><br>
+    <%= f.text_field :state %>
+  </div>
+  <div class="field">
+    <%= f.label :start_time %><br>
+    <%= f.datetime_select :start_time %>
+  </div>
+  <div class="field">
+    <%= f.label :progress %><br>
+    <%= f.text_field :progress %>
+  </div>
+  <div class="field">
+    <%= f.label :owner_id %><br>
+    <%= f.text_field :owner_id %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :volume_size %><br>
+    <%= f.number_field :volume_size %>
+  </div>
+  <div class="field">
+    <%= f.label :encrypted %><br>
+    <%= f.check_box :encrypted %>
+  </div>
+  <div class="field">
+    <%= f.label :replicated %><br>
+    <%= f.check_box :replicated %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

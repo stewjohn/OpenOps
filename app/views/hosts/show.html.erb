@@ -1,0 +1,158 @@
+<p id="notice"><%= notice %></p>
+<div class="row">
+<div class="col-sm-9">
+  <%= render :partial =>  'application/page_begin', :locals => {:title => 'Host Info'} %>
+<p>
+  <strong>Hostname:</strong>
+  <%= @host.hostname %>
+</p>
+
+<p>
+  <strong>Environment:</strong>
+  <%= @host.environment.name + ' - DR Enabled: ' +@host.environment.dr_enabled.to_s %>
+</p>
+<p>
+  <strong>Sysid:</strong>
+  <%= @host.sysid.name %>
+</p>
+
+<p>
+  <strong>Chef environment:</strong>
+  <%= @host.chef_environment_id %>
+</p>
+
+  <%= render 'application/page_end' %>
+  <%= render :partial =>  'application/page_begin', :locals => {:title => 'Instance Info'} %>
+  <p>
+    <strong>Instance:</strong>
+    <%= @instance.instance_id %>
+  </p>
+ <p>
+    <strong>State:</strong>
+    <%= @instance.state %>
+  </p>
+
+  <p>
+    <strong>Key name:</strong>
+    <%= @instance.key_name %>
+  </p>
+
+  <p>
+    <strong>Monitoring:</strong>
+    <%= @instance.monitoring %>
+  </p>
+
+  <p>
+    <strong>Instance type:</strong>
+    <%= @instance.instance_type %>
+  </p>
+
+  <h2><small>Network</small></h2>
+  <table class="table table-condensed table-bordered table-hover table-striped">
+    <thead>
+    <tr>
+      <th>Network interface</th>
+      <th>Public IP</th>
+      <th>Private IP</th>
+      <th>Subnet ID</th>
+      <th>Mac Address</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @instance_eni_mappings.each do |instance_eni_mapping| %>
+        <tr>
+          <td><%= instance_eni_mapping.network_interface_id %></td>
+          <td><%= instance_eni_mapping.instance_eni.public_ip %></td>
+          <td><%= instance_eni_mapping.instance_eni.private_ip_address %></td>
+          <td><%= instance_eni_mapping.instance_eni.subnet_id %></td>
+          <td><%= instance_eni_mapping.instance_eni.mac_address %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+
+  <h2><small>Block Mappings</small></h2>
+  <table class="table table-condensed table-bordered table-hover table-striped">
+    <thead>
+    <tr>
+      <th>Mount Point</th>
+      <th>Volume</th>
+      <th>Size</th>
+      <th>Iops</th>
+      <th>Type</th>
+      <th>State</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @instance_block_device_mappings.each do |instance_block_device_mapping| %>
+        <tr>
+            <td><%= instance_block_device_mapping.device_name %></td>
+            <td><%= link_to instance_block_device_mapping.volume_id, "/ebs_volumes/#{instance_block_device_mapping.ebs_volume.id}" %></td>
+            <td><%= instance_block_device_mapping.ebs_volume.size %></td>
+            <td><%= instance_block_device_mapping.ebs_volume.iops %></td>
+            <td><%= instance_block_device_mapping.ebs_volume.volume_type %></td>
+            <td><%= instance_block_device_mapping.ebs_volume.state %></td>
+
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+
+<h2><small>Last 5 Snapshots</small></h2>
+
+<table class="table table-condensed table-bordered table-hover table-striped">
+  <thead>
+    <tr>
+      <th>Snapshot</th>
+      <th>Volume</th>
+      <th>State</th>
+      <th>Start time</th>
+      <th>Progress</th>
+      <th>Description</th>
+      <th>Volume size</th>
+      <th>Encrypted</th>
+      <th>Replicated</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ebs_snapshots.each do |ebs_snapshot| %>
+      <tr>
+        <td><%= ebs_snapshot.snapshot_id %></td>
+        <td><%= ebs_snapshot.volume_id %></td>
+        <td><%= ebs_snapshot.state %></td>
+        <td><%= ebs_snapshot.start_time %></td>
+        <td><%= ebs_snapshot.progress %></td>
+        <td><%= ebs_snapshot.description %></td>
+        <td><%= ebs_snapshot.volume_size %></td>
+        <td><%= ebs_snapshot.encrypted %></td>
+        <td><%= ebs_snapshot.replicated %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+
+  <%= render 'application/page_end' %>
+
+</div>
+<div class="col-sm-3">
+  <%= render :partial =>  'application/page_begin', :locals => {:title => 'Operator Actions'} %>
+  <p><%= button_to 'Reboot Instance', @host, :class =>  'btn btn-blue  btn-block disabled' %></p>
+  <p><%= button_to 'Create SnapShot', @host,:class =>  'btn btn-blue btn-block disabled' %></p>
+  <p><%= button_to 'Replace Instance',@host, :class =>  'btn btn-orange btn-block disabled' %></p>
+  <p><%= button_to 'Replace Volumes', @host,:class =>  'btn btn-orange btn-block disabled' %></p>
+  <p><%= button_to 'Recover Instance',@host, :class =>  'btn btn-danger btn-block disabled' %></p>
+
+
+  <%= render 'application/page_end' %>
+</div>
+</div>
+<%= link_to 'Edit', edit_host_path(@host) %> |
+<%= link_to 'Back', hosts_path %>

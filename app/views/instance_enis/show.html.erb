@@ -1,0 +1,79 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Host:</strong>
+  <%= @instance_eni.host_id %>
+</p>
+
+<p>
+  <strong>Instance:</strong>
+  <%= @instance_eni.instance_id %>
+</p>
+
+<p>
+  <strong>Network interface:</strong>
+  <%= @instance_eni.network_interface_id %>
+</p>
+
+<p>
+  <strong>Subnet:</strong>
+  <%= @instance_eni.subnet_id %>
+</p>
+
+<p>
+  <strong>Vpc:</strong>
+  <%= @instance_eni.vpc_id %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @instance_eni.owner_id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @instance_eni.status %>
+</p>
+
+<p>
+  <strong>Mac address:</strong>
+  <%= @instance_eni.mac_address %>
+</p>
+
+<p>
+  <strong>Source dest check:</strong>
+  <%= @instance_eni.source_dest_check %>
+</p>
+
+<p>
+  <strong>Attachment:</strong>
+  <%= @instance_eni.attachment_id %>
+</p>
+
+<p>
+  <strong>Attach date time:</strong>
+  <%= @instance_eni.attach_date_time %>
+</p>
+
+<p>
+  <strong>Public ip:</strong>
+  <%= @instance_eni.public_ip %>
+</p>
+
+<p>
+  <strong>Public dns name:</strong>
+  <%= @instance_eni.public_dns_name %>
+</p>
+
+<p>
+  <strong>Private ip addresses:</strong>
+  <%= @instance_eni.private_ip_addresses %>
+</p>
+
+<p>
+  <strong>Private dns name:</strong>
+  <%= @instance_eni.private_dns_name %>
+</p>
+
+<%= link_to 'Edit', edit_instance_eni_path(@instance_eni) %> |
+<%= link_to 'Back', instance_enis_path %>

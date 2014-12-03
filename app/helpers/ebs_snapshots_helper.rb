@@ -1,0 +1,2 @@
+module EbsSnapshotsHelper
+end

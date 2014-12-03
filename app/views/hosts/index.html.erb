@@ -1,0 +1,49 @@
+<table class="table table-bordered datatable" id="hosts">
+  <thead>
+    <tr>
+      <th>Hostname</th>
+      <th>Environment</th>
+
+      <th>SYSID</th>
+      <th>Chef environment</th>
+      <th>Instance ID</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @hosts.each do |host| %>
+      <tr>
+        <td><%= host.hostname %></td>
+        <td><%= host.environment.name %></td>
+
+        <td><%= host.sysid.name %></td>
+        <td><%= host.chef_environment_id %></td>
+        <td><%= host.instance_id %></td>
+        <td><%= link_to 'Show', host %></td>
+        <td><%= link_to 'Edit', edit_host_path(host) %></td>
+        <td><%= link_to 'Destroy', host, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+  <tr>
+    <th>Hostname</th>
+    <th>Environment</th>
+
+    <th>SYSID</th>
+    <th>Chef environment</th>
+    <th>Instance ID</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </tfoot>
+</table>
+
+<br>
+
+<%= link_to 'New Host', new_host_path %>
+<%= render :partial => 'datatable_js', :locals => {:table => "hosts"} %>

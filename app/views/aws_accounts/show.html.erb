@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Account name:</strong>
+  <%= @aws_account.account_name %>
+</p>
+
+<p>
+  <strong>Environment:</strong>
+  <%= @aws_account.environment_id %>
+</p>
+
+<p>
+  <strong>Access key:</strong>
+  <%= @aws_account.access_key_id %>
+</p>
+
+<p>
+  <strong>Secrete access key:</strong>
+  <%= @aws_account.secrete_access_key %>
+</p>
+
+<%= link_to 'Edit', edit_aws_account_path(@aws_account) %> |
+<%= link_to 'Back', aws_accounts_path %>

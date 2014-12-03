@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  instance_id: MyString
+  device_name: MyString
+  volume_id: MyString
+
+two:
+  instance_id: MyString
+  device_name: MyString
+  volume_id: MyString

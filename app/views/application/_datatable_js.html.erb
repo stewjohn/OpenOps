@@ -1,0 +1,14 @@
+<script type="text/javascript">
+    jQuery(document).ready(function($)
+    {
+        $("#<%= table %>").dataTable({
+            "sPaginationType": "bootstrap",
+            "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            "bStateSave": true
+        });
+
+        $(".dataTables_wrapper select").select2({
+            minimumResultsForSearch: -1
+        });
+    });
+</script>

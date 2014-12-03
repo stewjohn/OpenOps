@@ -1,0 +1,39 @@
+<h1>Listing aws_subnets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Subnet</th>
+      <th>State</th>
+      <th>Vpc</th>
+      <th>Cidr block</th>
+      <th>Available ip address count</th>
+      <th>Availability zone</th>
+      <th>Default for az</th>
+      <th>Map public ip on launch</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @aws_subnets.each do |aws_subnet| %>
+      <tr>
+        <td><%= aws_subnet.subnet_id %></td>
+        <td><%= aws_subnet.state %></td>
+        <td><%= aws_subnet.vpc_id %></td>
+        <td><%= aws_subnet.cidr_block %></td>
+        <td><%= aws_subnet.available_ip_address_count %></td>
+        <td><%= aws_subnet.availability_zone %></td>
+        <td><%= aws_subnet.default_for_az %></td>
+        <td><%= aws_subnet.map_public_ip_on_launch %></td>
+        <td><%= link_to 'Show', aws_subnet %></td>
+        <td><%= link_to 'Edit', edit_aws_subnet_path(aws_subnet) %></td>
+        <td><%= link_to 'Destroy', aws_subnet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Aws subnet', new_aws_subnet_path %>

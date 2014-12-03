@@ -1,0 +1,2 @@
+module AwsAzsHelper
+end

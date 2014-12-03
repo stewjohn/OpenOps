@@ -1,0 +1,39 @@
+<h1>Listing instances</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Host</th>
+      <th>Instance</th>
+      <th>Owner</th>
+      <th>State code</th>
+      <th>State</th>
+      <th>Key name</th>
+      <th>Monitoring</th>
+      <th>Instance type</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @instances.each do |instance| %>
+      <tr>
+        <td><%= instance.host_id %></td>
+        <td><%= instance.instance_id %></td>
+        <td><%= instance.owner_id %></td>
+        <td><%= instance.state_code %></td>
+        <td><%= instance.state %></td>
+        <td><%= instance.key_name %></td>
+        <td><%= instance.monitoring %></td>
+        <td><%= instance.instance_type %></td>
+        <td><%= link_to 'Show', instance %></td>
+        <td><%= link_to 'Edit', edit_instance_path(instance) %></td>
+        <td><%= link_to 'Destroy', instance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Instance', new_instance_path %>

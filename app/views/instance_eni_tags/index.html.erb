@@ -1,0 +1,29 @@
+<h1>Listing instance_eni_tags</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Instance</th>
+      <th>Key</th>
+      <th>Value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @instance_eni_tags.each do |instance_eni_tag| %>
+      <tr>
+        <td><%= instance_eni_tag.instance_id %></td>
+        <td><%= instance_eni_tag.key %></td>
+        <td><%= instance_eni_tag.value %></td>
+        <td><%= link_to 'Show', instance_eni_tag %></td>
+        <td><%= link_to 'Edit', edit_instance_eni_tag_path(instance_eni_tag) %></td>
+        <td><%= link_to 'Destroy', instance_eni_tag, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Instance eni tag', new_instance_eni_tag_path %>

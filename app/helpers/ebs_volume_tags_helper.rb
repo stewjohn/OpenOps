@@ -1,0 +1,2 @@
+module EbsVolumeTagsHelper
+end

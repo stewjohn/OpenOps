@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  volume_id: MyString
+  key: MyString
+  value: MyString
+
+two:
+  volume_id: MyString
+  key: MyString
+  value: MyString

@@ -1,0 +1,53 @@
+<h1>Listing instance_enis</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Host</th>
+      <th>Instance</th>
+      <th>Network interface</th>
+      <th>Subnet</th>
+      <th>Vpc</th>
+      <th>Owner</th>
+      <th>Status</th>
+      <th>Mac address</th>
+      <th>Source dest check</th>
+      <th>Attachment</th>
+      <th>Attach date time</th>
+      <th>Public ip</th>
+      <th>Public dns name</th>
+      <th>Private ip addresses</th>
+      <th>Private dns name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @instance_enis.each do |instance_eni| %>
+      <tr>
+        <td><%= instance_eni.host_id %></td>
+        <td><%= instance_eni.instance_id %></td>
+        <td><%= instance_eni.network_interface_id %></td>
+        <td><%= instance_eni.subnet_id %></td>
+        <td><%= instance_eni.vpc_id %></td>
+        <td><%= instance_eni.owner_id %></td>
+        <td><%= instance_eni.status %></td>
+        <td><%= instance_eni.mac_address %></td>
+        <td><%= instance_eni.source_dest_check %></td>
+        <td><%= instance_eni.attachment_id %></td>
+        <td><%= instance_eni.attach_date_time %></td>
+        <td><%= instance_eni.public_ip %></td>
+        <td><%= instance_eni.public_dns_name %></td>
+        <td><%= instance_eni.private_ip_address %></td>
+        <td><%= instance_eni.private_dns_name %></td>
+        <td><%= link_to 'Show', instance_eni %></td>
+        <td><%= link_to 'Edit', edit_instance_eni_path(instance_eni) %></td>
+        <td><%= link_to 'Destroy', instance_eni, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Instance eni', new_instance_eni_path %>

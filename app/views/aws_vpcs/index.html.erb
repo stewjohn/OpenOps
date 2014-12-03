@@ -1,0 +1,35 @@
+<h1>Listing aws_vpcs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Vpc</th>
+      <th>State</th>
+      <th>Cidr block</th>
+      <th>Dhcp options</th>
+      <th>Instance default</th>
+      <th>Is default</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @aws_vpcs.each do |aws_vpc| %>
+      <tr>
+        <td><%= aws_vpc.vpc_id %></td>
+        <td><%= aws_vpc.state %></td>
+        <td><%= aws_vpc.cidr_block %></td>
+        <td><%= aws_vpc.dhcp_options_id %></td>
+        <td><%= aws_vpc.instance_default %></td>
+        <td><%= aws_vpc.is_default %></td>
+        <td><%= link_to 'Show', aws_vpc %></td>
+        <td><%= link_to 'Edit', edit_aws_vpc_path(aws_vpc) %></td>
+        <td><%= link_to 'Destroy', aws_vpc, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Aws vpc', new_aws_vpc_path %>

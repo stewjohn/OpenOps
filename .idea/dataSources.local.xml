@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Rails openops: development" uuid="a4515660-d0f6-44d8-b61e-b3fd3a89c961">
+      <user-name>opsconsole</user-name>
+      <user-password>dfe0dfc5dfd9dfdedf9fdf9edf9ddf9d</user-password>
+    </data-source>
+    <data-source name="Rails openops: test" uuid="5890f1b6-72cf-41be-8851-0cf1e862ce7a" />
+    <data-source name="Rails openops: production" uuid="8abe5bb7-761c-44b3-839b-7984885ff7a4" />
+  </component>
+</project>

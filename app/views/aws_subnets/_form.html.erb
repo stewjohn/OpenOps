@@ -1,0 +1,49 @@
+<%= form_for(@aws_subnet) do |f| %>
+  <% if @aws_subnet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@aws_subnet.errors.count, "error") %> prohibited this aws_subnet from being saved:</h2>
+
+      <ul>
+      <% @aws_subnet.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :subnet_id %><br>
+    <%= f.text_field :subnet_id %>
+  </div>
+  <div class="field">
+    <%= f.label :state %><br>
+    <%= f.text_field :state %>
+  </div>
+  <div class="field">
+    <%= f.label :vpc_id %><br>
+    <%= f.text_field :vpc_id %>
+  </div>
+  <div class="field">
+    <%= f.label :cidr_block %><br>
+    <%= f.text_field :cidr_block %>
+  </div>
+  <div class="field">
+    <%= f.label :available_ip_address_count %><br>
+    <%= f.number_field :available_ip_address_count %>
+  </div>
+  <div class="field">
+    <%= f.label :availability_zone %><br>
+    <%= f.text_field :availability_zone %>
+  </div>
+  <div class="field">
+    <%= f.label :default_for_az %><br>
+    <%= f.check_box :default_for_az %>
+  </div>
+  <div class="field">
+    <%= f.label :map_public_ip_on_launch %><br>
+    <%= f.check_box :map_public_ip_on_launch %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

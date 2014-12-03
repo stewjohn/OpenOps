@@ -1,0 +1,77 @@
+<%= form_for(@instance_eni) do |f| %>
+  <% if @instance_eni.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@instance_eni.errors.count, "error") %> prohibited this instance_eni from being saved:</h2>
+
+      <ul>
+      <% @instance_eni.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :host_id %><br>
+    <%= f.number_field :host_id %>
+  </div>
+  <div class="field">
+    <%= f.label :instance_id %><br>
+    <%= f.text_field :instance_id %>
+  </div>
+  <div class="field">
+    <%= f.label :network_interface_id %><br>
+    <%= f.text_field :network_interface_id %>
+  </div>
+  <div class="field">
+    <%= f.label :subnet_id %><br>
+    <%= f.text_field :subnet_id %>
+  </div>
+  <div class="field">
+    <%= f.label :vpc_id %><br>
+    <%= f.text_field :vpc_id %>
+  </div>
+  <div class="field">
+    <%= f.label :owner_id %><br>
+    <%= f.text_field :owner_id %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.text_field :status %>
+  </div>
+  <div class="field">
+    <%= f.label :mac_address %><br>
+    <%= f.text_field :mac_address %>
+  </div>
+  <div class="field">
+    <%= f.label :source_dest_check %><br>
+    <%= f.check_box :source_dest_check %>
+  </div>
+  <div class="field">
+    <%= f.label :attachment_id %><br>
+    <%= f.text_field :attachment_id %>
+  </div>
+  <div class="field">
+    <%= f.label :attach_date_time %><br>
+    <%= f.datetime_select :attach_date_time %>
+  </div>
+  <div class="field">
+    <%= f.label :public_ip %><br>
+    <%= f.text_field :public_ip %>
+  </div>
+  <div class="field">
+    <%= f.label :public_dns_name %><br>
+    <%= f.text_field :public_dns_name %>
+  </div>
+  <div class="field">
+    <%= f.label :private_ip_addresses %><br>
+    <%= f.text_field :private_ip_addresses %>
+  </div>
+  <div class="field">
+    <%= f.label :private_dns_name %><br>
+    <%= f.text_field :private_dns_name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

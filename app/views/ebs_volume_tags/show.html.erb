@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Volume:</strong>
+  <%= @ebs_volume_tag.volume_id %>
+</p>
+
+<p>
+  <strong>Key:</strong>
+  <%= @ebs_volume_tag.key %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @ebs_volume_tag.value %>
+</p>
+
+<%= link_to 'Edit', edit_ebs_volume_tag_path(@ebs_volume_tag) %> |
+<%= link_to 'Back', ebs_volume_tags_path %>

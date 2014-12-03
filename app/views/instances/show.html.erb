@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Host:</strong>
+  <%= @instance.host_id %>
+</p>
+
+<p>
+  <strong>Instance:</strong>
+  <%= @instance.instance_id %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @instance.owner_id %>
+</p>
+
+<p>
+  <strong>State code:</strong>
+  <%= @instance.state_code %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @instance.state %>
+</p>
+
+<p>
+  <strong>Key name:</strong>
+  <%= @instance.key_name %>
+</p>
+
+<p>
+  <strong>Monitoring:</strong>
+  <%= @instance.monitoring %>
+</p>
+
+<p>
+  <strong>Instance type:</strong>
+  <%= @instance.instance_type %>
+</p>
+
+<%= link_to 'Edit', edit_instance_path(@instance) %> |
+<%= link_to 'Back', instances_path %>

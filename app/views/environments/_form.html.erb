@@ -1,0 +1,145 @@
+<%= form_for(@environment, :html => {:class=> "form-horizontal" }  ) do |f| %>
+  <% if @environment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@environment.errors.count, "error") %> prohibited this environment from being saved:</h2>
+
+      <ul>
+      <% @environment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <div class="form-group">
+    <%= f.label :name , :class => "col-sm-3 control-label" %>
+    <div class="col-sm-6">
+        <%= f.text_field :name %>
+    </div>
+  </div>
+
+    <div class="form-group">
+      <%= f.label "AWS Account", :class => "col-sm-3 control-label" %>
+
+      <div class="col-sm-3">
+        <select id="a" name="environment[aws_account_id]" class="select2" data-allow-clear="true" data-placeholder="Select Account...">
+
+
+        </select>
+      </div>
+       </div>
+
+    <% if params[:action] == 'edit' %>
+        <div class="form-group">
+          <%= f.label "Primary VPC", :class => "col-sm-3 control-label" %>
+          <div class="col-sm-3">
+            <select id="b" name="environment[primary_vpc_id]" class="select2" data-allow-clear="true" data-placeholder="Select Primary VPC...">
+              <option></option>
+              <optgroup label="Accounts">
+
+              </optgroup>
+            </select>
+
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label "DR VPC", :class => "col-sm-3 control-label" %>
+          <div class="col-sm-3">
+            <select id="c" name="environment[dr_vpc_id]" class="select2" data-allow-clear="true" data-placeholder="Select DR VPC...">
+            </select>
+
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-sm-3 control-label">DR</label>
+
+          <div class="col-sm-5">
+
+            <div class="bs-example">
+
+                <input name="environment[dr_enabled]" data-off-color="danger" data-on-color="success" data-on-text="DR"  data-off-text="NO DR" type="checkbox" <%= 'checked' if @environment.dr_enabled%>>
+
+            </div>
+
+          </div>
+        </div>
+
+        <script>
+            $("[name='environment[dr_enabled]']").bootstrapSwitch();
+        </script>
+
+
+
+
+
+    <% end %>
+
+    <script>
+        var env_data = [ '<%= @environment.aws_account_id %>', '<%= @environment.primary_vpc_id %>',  '<%= @environment.dr_vpc_id %>']
+        var data = [ // The dat
+                <%  length = @accounts.length
+                    @accounts.each_with_index do |account, index|
+                        aca = Array.new
+                        aca.push account.account_name
+                        aca.push account.account_number
+                        vpca = Array.new
+                        account.aws_vpcs.each do |vpc|
+                            vpa = Array.new
+                            vpa.push vpc.vpc_id
+                            vpa.push vpc.aws_region.name
+                            vpca.push vpa
+                        end
+                        aca.push vpca %>
+                        <%= aca.to_s.html_safe %><% unless length==index+1 %>,<% end %>
+                <% end %>
+        ];
+
+        $a = $('#a'); // The dropdowns
+        $b = $('#b');
+        $c = $('#c');
+
+        for(var i = 0; i < data.length; i++) {
+            var first = data[i][0];
+            $a.append($("<option>"). // Add options
+
+                    attr("value", data[i][1]).
+                    data("sel", i).
+                    text(first));
+
+
+        }
+
+
+        $a.change(function() {
+            var index = $(this).children('option:selected').data('sel');
+            var second = data[index][2]; // The second-choice data
+
+            $b.html(''); // Clear existing options in second dropdown
+            $c.html('');
+
+            for(var j = 0; j < second.length; j++) {
+                $b.append($("<option>"). // Add options
+                        attr("value",second[j][0]).
+                        data("sel", j).
+                        text(second[j][1] + ' - ' + second[j][0]));
+                $c.append($("<option>"). // Add options
+                        attr("value",second[j][0]).
+                        data("sel", j).
+                        text(second[j][1] + ' - ' + second[j][0]));
+            }
+        }).change(); // Trigger once to add options at load of first choice
+        $a.val(env_data[0]);
+        $b.val(env_data[1])
+        $c.val(env_data[2]);
+    </script>
+
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label" > </label>
+      <div class="col-sm-5">
+        <div class="submit_link actions  "> <%= f.submit :class => 'btn btn-green' %> </div>
+      </div>
+    </div>
+<% end %>

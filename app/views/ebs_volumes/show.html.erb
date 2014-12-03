@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Aws account:</strong>
+  <%= @ebs_volume.aws_account_id %>
+</p>
+
+<p>
+  <strong>Aws region:</strong>
+  <%= @ebs_volume.aws_region_id %>
+</p>
+
+<p>
+  <strong>Volume:</strong>
+  <%= @ebs_volume.volume_id %>
+</p>
+
+<p>
+  <strong>Size:</strong>
+  <%= @ebs_volume.size %>
+</p>
+
+<p>
+  <strong>Snapshot:</strong>
+  <%= @ebs_volume.snapshot_id %>
+</p>
+
+<p>
+  <strong>Availability zone:</strong>
+  <%= @ebs_volume.availability_zone %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @ebs_volume.state %>
+</p>
+
+<p>
+  <strong>Create time:</strong>
+  <%= @ebs_volume.create_time %>
+</p>
+
+<p>
+  <strong>Volume type:</strong>
+  <%= @ebs_volume.volume_type %>
+</p>
+
+<p>
+  <strong>Iops:</strong>
+  <%= @ebs_volume.iops %>
+</p>
+
+<p>
+  <strong>Encrypted:</strong>
+  <%= @ebs_volume.encrypted %>
+</p>
+
+<%= link_to 'Edit', edit_ebs_volume_path(@ebs_volume) %> |
+<%= link_to 'Back', ebs_volumes_path %>

@@ -1,0 +1,62 @@
+<%= form_for(@host, :html => {:class=> "form-horizontal" }  ) do |f| %>
+  <% if @host.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@host.errors.count, "error") %> prohibited this host from being saved:</h2>
+
+      <ul>
+      <% @host.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+    <div class="form-group">
+    <%= f.label :hostname , :class => "col-sm-3 control-label" %>
+      <div class="col-sm-9">
+    <%= f.text_field :hostname %><b> .dtcc.com / .cloud.dtcc.com</b>
+  </div>
+    </div>
+
+
+  <div class="form-group">
+    <%= f.label :environment_id , :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <select id="a" name="host[environment_id]" class="select2" data-allow-clear="true" data-placeholder="Select Account...">
+		  <% @environments.each do |env| %>
+                <option value="<%= env.id %>" <%= if env.id==@host.environment_id then "selected" end %>><%= env.name %></option>
+            <% end %>
+      </select>
+  </div>
+  </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label" for="host_SYSID">SYSID</label>
+      <div class="col-sm-9">
+        <select id="a" name="host[sysid_id]" class="select2" data-allow-clear="true" data-placeholder="Select Account...">
+          <% @sysids.each do |sysid| %>
+              <option value="<%= sysid.id %>" <%= if sysid.id==@host.sysid_id then "selected" end %>><%= sysid.name %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :instance_id, :class => "col-sm-3 control-label" %>
+      <div class="col-sm-9">
+        <select id="a" name="host[instance_id]" class="select2" data-allow-clear="true" data-placeholder="Select Account...">
+          <% @instances.each do |instance| %>
+              <option value="<%= instance.instance_id %>"
+                      <%= if instance.instance_id==@host.instance_id then "selected" end %>><%= instance.instance_type + ' - ' + instance.instance_id  %></option>
+          <% end %>
+          <option disabled>Create New Instance -- Disabled</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label" > </label>
+      <div class="col-sm-5">
+        <div class="submit_link actions  "> <%= f.submit :class => 'btn btn-green' %> </div>
+      </div>
+    </div>
+<% end %>

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Instance:</strong>
+  <%= @instance_eni_mapping.instance_id %>
+</p>
+
+<p>
+  <strong>Network interface:</strong>
+  <%= @instance_eni_mapping.network_interface_id %>
+</p>
+
+<%= link_to 'Edit', edit_instance_eni_mapping_path(@instance_eni_mapping) %> |
+<%= link_to 'Back', instance_eni_mappings_path %>

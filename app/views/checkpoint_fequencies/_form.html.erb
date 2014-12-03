@@ -1,0 +1,25 @@
+<%= form_for(@checkpoint_fequency) do |f| %>
+  <% if @checkpoint_fequency.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@checkpoint_fequency.errors.count, "error") %> prohibited this checkpoint_fequency from being saved:</h2>
+
+      <ul>
+      <% @checkpoint_fequency.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :hours_apart %><br>
+    <%= f.number_field :hours_apart %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

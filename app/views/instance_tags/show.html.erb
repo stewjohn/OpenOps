@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Instance:</strong>
+  <%= @instance_tag.instance_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @instance_tag.name %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @instance_tag.value %>
+</p>
+
+<%= link_to 'Edit', edit_instance_tag_path(@instance_tag) %> |
+<%= link_to 'Back', instance_tags_path %>

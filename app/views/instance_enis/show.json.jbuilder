@@ -1,0 +1,1 @@
+json.extract! @instance_eni, :id, :host_id, :instance_id, :network_interface_id, :subnet_id, :vpc_id, :owner_id, :status, :mac_address, :source_dest_check, :attachment_id, :attach_date_time, :public_ip, :public_dns_name, :private_ip_addresses, :private_dns_name, :created_at, :updated_at

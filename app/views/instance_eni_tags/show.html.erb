@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Instance:</strong>
+  <%= @instance_eni_tag.instance_id %>
+</p>
+
+<p>
+  <strong>Key:</strong>
+  <%= @instance_eni_tag.key %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @instance_eni_tag.value %>
+</p>
+
+<%= link_to 'Edit', edit_instance_eni_tag_path(@instance_eni_tag) %> |
+<%= link_to 'Back', instance_eni_tags_path %>

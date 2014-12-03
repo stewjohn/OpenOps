@@ -1,0 +1,39 @@
+<h1>Listing ebs_snapshots</h1>
+
+<table class="table table-condensed table-bordered table-hover table-striped">
+  <thead>
+    <tr>
+      <th>Aws region</th>
+      <th>Snapshot</th>
+      <th>Volume</th>
+      <th>State</th>
+      <th>Start time</th>
+      <th>Progress</th>
+      <th>Description</th>
+      <th>Volume size</th>
+      <th>Encrypted</th>
+      <th>Replicated</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ebs_snapshots.each do |ebs_snapshot| %>
+      <tr>
+        <td><%= ebs_snapshot.aws_region_id %></td>
+        <td><%= ebs_snapshot.snapshot_id %></td>
+        <td><%= ebs_snapshot.volume_id %></td>
+        <td><%= ebs_snapshot.state %></td>
+        <td><%= ebs_snapshot.start_time %></td>
+        <td><%= ebs_snapshot.progress %></td>
+        <td><%= ebs_snapshot.description %></td>
+        <td><%= ebs_snapshot.volume_size %></td>
+        <td><%= ebs_snapshot.encrypted %></td>
+        <td><%= ebs_snapshot.replicated %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ebs snapshot', new_ebs_snapshot_path %>

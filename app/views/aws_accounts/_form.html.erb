@@ -1,0 +1,38 @@
+<%= form_for(@aws_account, :html => {:class=> "form-horizontal" }  ) do |f| %>
+  <% if @aws_account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@aws_account.errors.count, "error") %> prohibited this aws_account from being saved:</h2>
+
+      <ul>
+      <% @aws_account.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <div class="form-group">
+    <%= f.label :account_name, :class => "col-sm-3 control-label" %>
+      <div class="col-sm-9">
+    <%= f.text_field :account_name %>
+  </div>
+    </div>
+    <div class="form-group">
+    <%= f.label :access_key_id, :class => "col-sm-3 control-label" %>
+      <div class="col-sm-9">
+    <%= f.text_field :access_key_id, :size => 32 %>
+  </div>
+    </div>
+    <div class="form-group">
+    <%= f.label :secrete_access_key , :class => "col-sm-3 control-label" %>
+      <div class="col-lg-9">
+    <%= f.text_field :secrete_access_key, :size => 64 %>
+  </div>
+  </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label" > </label>
+      <div class="col-sm-5">
+        <div class="submit_link actions  "> <%= f.submit :class => 'btn btn-green' %> </div>
+      </div>
+    </div>
+<% end %>

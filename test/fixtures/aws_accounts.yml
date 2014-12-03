@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  account_name: MyString
+  environment_id: 1
+  access_key_id: MyString
+  secrete_access_key: MyString
+
+two:
+  account_name: MyString
+  environment_id: 1
+  access_key_id: MyString
+  secrete_access_key: MyString

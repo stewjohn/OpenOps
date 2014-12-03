@@ -1,0 +1,27 @@
+<h1>Listing instance_eni_mappings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Instance</th>
+      <th>Network interface</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @instance_eni_mappings.each do |instance_eni_mapping| %>
+      <tr>
+        <td><%= instance_eni_mapping.instance_id %></td>
+        <td><%= instance_eni_mapping.network_interface_id %></td>
+        <td><%= link_to 'Show', instance_eni_mapping %></td>
+        <td><%= link_to 'Edit', edit_instance_eni_mapping_path(instance_eni_mapping) %></td>
+        <td><%= link_to 'Destroy', instance_eni_mapping, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Instance eni mapping', new_instance_eni_mapping_path %>

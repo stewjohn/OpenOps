@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  aws_vpc_id: 
+  name: MyString
+  value: MyString
+
+two:
+  aws_vpc_id: 
+  name: MyString
+  value: MyString

@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Aws account:</strong>
+  <%= @ebs_snapshot.aws_account_id %>
+</p>
+
+<p>
+  <strong>Aws region:</strong>
+  <%= @ebs_snapshot.aws_region_id %>
+</p>
+
+<p>
+  <strong>Snapshot:</strong>
+  <%= @ebs_snapshot.snapshot_id %>
+</p>
+
+<p>
+  <strong>Volume:</strong>
+  <%= @ebs_snapshot.volume_id %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @ebs_snapshot.state %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @ebs_snapshot.start_time %>
+</p>
+
+<p>
+  <strong>Progress:</strong>
+  <%= @ebs_snapshot.progress %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @ebs_snapshot.owner_id %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @ebs_snapshot.description %>
+</p>
+
+<p>
+  <strong>Volume size:</strong>
+  <%= @ebs_snapshot.volume_size %>
+</p>
+
+<p>
+  <strong>Encrypted:</strong>
+  <%= @ebs_snapshot.encrypted %>
+</p>
+
+<p>
+  <strong>Replicated:</strong>
+  <%= @ebs_snapshot.replicated %>
+</p>
+
+<%= link_to 'Edit', edit_ebs_snapshot_path(@ebs_snapshot) %> |
+<%= link_to 'Back', ebs_snapshots_path %>

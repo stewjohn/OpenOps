@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @sysid.name %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @sysid.owner %>
+</p>
+
+<p>
+  <strong>Email notification:</strong>
+  <%= @sysid.email_notification %>
+</p>
+
+<%= link_to 'Edit', edit_sysid_path(@sysid) %> |
+<%= link_to 'Back', sysids_path %>

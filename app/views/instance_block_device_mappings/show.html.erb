@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Instance:</strong>
+  <%= @instance_block_device_mapping.instance_id %>
+</p>
+
+<p>
+  <strong>Device name:</strong>
+  <%= @instance_block_device_mapping.device_name %>
+</p>
+
+<p>
+  <strong>Volume:</strong>
+  <%= @instance_block_device_mapping.volume_id %>
+</p>
+
+<%= link_to 'Edit', edit_instance_block_device_mapping_path(@instance_block_device_mapping) %> |
+<%= link_to 'Back', instance_block_device_mappings_path %>

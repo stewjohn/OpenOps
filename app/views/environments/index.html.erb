@@ -1,0 +1,34 @@
+
+<table class="table table-bordered datatable" id="groups">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @environments.each do |environment| %>
+      <tr>
+        <td width="90%"><%= environment.name %></td>
+        <td><%= link_to 'Show', environment, :class =>  'btn btn-info'%></td>
+        <td><%= link_to 'Edit', edit_environment_path(environment), :class =>  'btn btn-green' %></td>
+        <td><%= button_to 'Destroy', environment, method: :delete, data: { confirm: 'Are you sure?' }, :class =>  'btn btn-danger' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </tfoot>
+</table>
+
+<%= link_to 'New Environment', new_environment_path %>
+
+<%= render :partial => 'datatable_js', :locals => {:table => "groups"} %>

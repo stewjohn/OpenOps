@@ -1,0 +1,28 @@
+instance_id	character varying(255)	
+Browse	Alter	Privileges	Drop	
+network_interface_id	character varying(255)	
+Browse	Alter	Privileges	Drop	
+subnet_id	character varying(255)	
+Browse	Alter	Privileges	Drop	
+vpc_id	character varying(255)	
+Browse	Alter	Privileges	Drop	
+owner_id	character varying(255)	
+Browse	Alter	Privileges	Drop	
+status	character varying(255)	
+Browse	Alter	Privileges	Drop	
+mac_address	character varying(255)	
+Browse	Alter	Privileges	Drop	
+source_dest_check	boolean	
+Browse	Alter	Privileges	Drop	
+attachment_id	character varying(255)	
+Browse	Alter	Privileges	Drop	
+attach_date_time	timestamp without time zone	
+Browse	Alter	Privileges	Drop	
+public_ip	character varying(255)	
+Browse	Alter	Privileges	Drop	
+public_dns_name	character varying(255)	
+Browse	Alter	Privileges	Drop	
+private_ip_addresses	character varying(255)	
+Browse	Alter	Privileges	Drop	
+private_dns_name	character varying(255)	
+Browse	Alter	Privileges	Drop	

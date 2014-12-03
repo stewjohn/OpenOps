@@ -1,0 +1,29 @@
+<h1>Listing sysids</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Owner</th>
+      <th>Email notification</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sysids.each do |sysid| %>
+      <tr>
+        <td><%= sysid.name %></td>
+        <td><%= sysid.owner %></td>
+        <td><%= sysid.email_notification %></td>
+        <td><%= link_to 'Show', sysid %></td>
+        <td><%= link_to 'Edit', edit_sysid_path(sysid) %></td>
+        <td><%= link_to 'Destroy', sysid, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sysid', new_sysid_path %>

@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Subnet:</strong>
+  <%= @aws_subnet.subnet_id %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @aws_subnet.state %>
+</p>
+
+<p>
+  <strong>Vpc:</strong>
+  <%= @aws_subnet.vpc_id %>
+</p>
+
+<p>
+  <strong>Cidr block:</strong>
+  <%= @aws_subnet.cidr_block %>
+</p>
+
+<p>
+  <strong>Available ip address count:</strong>
+  <%= @aws_subnet.available_ip_address_count %>
+</p>
+
+<p>
+  <strong>Availability zone:</strong>
+  <%= @aws_subnet.availability_zone %>
+</p>
+
+<p>
+  <strong>Default for az:</strong>
+  <%= @aws_subnet.default_for_az %>
+</p>
+
+<p>
+  <strong>Map public ip on launch:</strong>
+  <%= @aws_subnet.map_public_ip_on_launch %>
+</p>
+
+<%= link_to 'Edit', edit_aws_subnet_path(@aws_subnet) %> |
+<%= link_to 'Back', aws_subnets_path %>

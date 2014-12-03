@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="1695388133">
+    <data-source source="LOCAL" name="Rails openops: development" uuid="a4515660-d0f6-44d8-b61e-b3fd3a89c961">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://openops.clfqghfp5bfq.us-east-1.rds.amazonaws.com:5432/openops</jdbc-url>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails openops: test" uuid="5890f1b6-72cf-41be-8851-0cf1e862ce7a">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://openops.clfqghfp5bfq.us-east-1.rds.amazonaws.com:5432/db/test.sqlite3</jdbc-url>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails openops: production" uuid="8abe5bb7-761c-44b3-839b-7984885ff7a4">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://openops.clfqghfp5bfq.us-east-1.rds.amazonaws.com:5432/db/production.sqlite3</jdbc-url>
+      <libraries />
+    </data-source>
+  </component>
+</project>

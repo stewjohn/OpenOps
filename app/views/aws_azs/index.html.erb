@@ -1,0 +1,27 @@
+<h1>Listing aws_azs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Aws region</th>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @aws_azs.each do |aws_az| %>
+      <tr>
+        <td><%= aws_az.aws_region_id %></td>
+        <td><%= aws_az.name %></td>
+        <td><%= link_to 'Show', aws_az %></td>
+        <td><%= link_to 'Edit', edit_aws_az_path(aws_az) %></td>
+        <td><%= link_to 'Destroy', aws_az, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Aws az', new_aws_az_path %>

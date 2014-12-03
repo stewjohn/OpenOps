@@ -1,0 +1,51 @@
+<ul id="main-menu" class="multiple-expanded">
+  <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+  <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+      <li>
+        <a href="/">
+          <i class="fa fa-dashboard"></i>
+          <span>DashBoard</span>
+        </a>
+      </li>
+
+      <% [
+      ['Hosts','hosts','fa-cube'],
+      ['Instances','instances','fa-cubes'],
+      ['SYSID','sysids','fa-university']
+
+         ].each do |menu| %>
+      <li>
+        <a href="/<%= menu[1] %>">
+          <i class="fa <%= menu[2] %>"></i>
+          <span><%= menu[0] %></span>
+        </a>
+      </li>
+      <% end %>
+      <!-- ENV -->
+      <li>
+        <a href="/environments">
+          <i class="fa fa-cloud"></i>
+          <span>Environments</span>
+        </a>
+      </li>
+        <!-- ACCOUNTS -->
+      <li>
+        <a href="/aws_accounts">
+          <i class="fa fa-gears"></i>
+          <span>AWS DATA</span>
+        </a>
+        <ul>
+        <% [{'aws_accounts'=>'Accounts'},{'aws_vpcs'=>'VPC'},{'aws_subnets'=>'Subnets'},
+            {'ebs_volumes'=>'EBS Volumes'},{'ebs_snapshots'=>'EBS SnapShots'},{'instance_block_device_mappings'=>'Block Device Maps'},
+            {'instance_enis'=>'Network Interfaces'}
+           
+            ].each do |menu| %>
+          <li>
+            <a href="/<%= menu.first[0] %>">
+              <span><%= menu.first[1] %></span>
+            </a>
+          </li>
+        <% end %>
+        </ul>
+      </li>
+</ul>

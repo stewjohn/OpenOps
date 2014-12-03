@@ -1,0 +1,29 @@
+<h1>Listing instance_block_device_mappings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Instance</th>
+      <th>Device name</th>
+      <th>Volume</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @instance_block_device_mappings.each do |instance_block_device_mapping| %>
+      <tr>
+        <td><%= instance_block_device_mapping.instance_id %></td>
+        <td><%= instance_block_device_mapping.device_name %></td>
+        <td><%= instance_block_device_mapping.volume_id %></td>
+        <td><%= link_to 'Show', instance_block_device_mapping %></td>
+        <td><%= link_to 'Edit', edit_instance_block_device_mapping_path(instance_block_device_mapping) %></td>
+        <td><%= link_to 'Destroy', instance_block_device_mapping, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Instance block device mapping', new_instance_block_device_mapping_path %>

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Snapshot:</strong>
+  <%= @ebs_snapshot_tag.snapshot_id %>
+</p>
+
+<p>
+  <strong>Key:</strong>
+  <%= @ebs_snapshot_tag.key %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @ebs_snapshot_tag.value %>
+</p>
+
+<%= link_to 'Edit', edit_ebs_snapshot_tag_path(@ebs_snapshot_tag) %> |
+<%= link_to 'Back', ebs_snapshot_tags_path %>

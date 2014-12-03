@@ -1,0 +1,61 @@
+<%= form_for(@ebs_volume) do |f| %>
+  <% if @ebs_volume.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ebs_volume.errors.count, "error") %> prohibited this ebs_volume from being saved:</h2>
+
+      <ul>
+      <% @ebs_volume.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :aws_account_id %><br>
+    <%= f.text_field :aws_account_id %>
+  </div>
+  <div class="field">
+    <%= f.label :aws_region_id %><br>
+    <%= f.text_field :aws_region_id %>
+  </div>
+  <div class="field">
+    <%= f.label :volume_id %><br>
+    <%= f.text_field :volume_id %>
+  </div>
+  <div class="field">
+    <%= f.label :size %><br>
+    <%= f.number_field :size %>
+  </div>
+  <div class="field">
+    <%= f.label :snapshot_id %><br>
+    <%= f.text_field :snapshot_id %>
+  </div>
+  <div class="field">
+    <%= f.label :availability_zone %><br>
+    <%= f.text_field :availability_zone %>
+  </div>
+  <div class="field">
+    <%= f.label :state %><br>
+    <%= f.text_field :state %>
+  </div>
+  <div class="field">
+    <%= f.label :create_time %><br>
+    <%= f.datetime_select :create_time %>
+  </div>
+  <div class="field">
+    <%= f.label :volume_type %><br>
+    <%= f.text_field :volume_type %>
+  </div>
+  <div class="field">
+    <%= f.label :iops %><br>
+    <%= f.number_field :iops %>
+  </div>
+  <div class="field">
+    <%= f.label :encrypted %><br>
+    <%= f.check_box :encrypted %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

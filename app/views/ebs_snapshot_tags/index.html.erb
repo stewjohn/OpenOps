@@ -1,0 +1,29 @@
+<h1>Listing ebs_snapshot_tags</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Snapshot</th>
+      <th>Key</th>
+      <th>Value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ebs_snapshot_tags.each do |ebs_snapshot_tag| %>
+      <tr>
+        <td><%= ebs_snapshot_tag.snapshot_id %></td>
+        <td><%= ebs_snapshot_tag.key %></td>
+        <td><%= ebs_snapshot_tag.value %></td>
+        <td><%= link_to 'Show', ebs_snapshot_tag %></td>
+        <td><%= link_to 'Edit', edit_ebs_snapshot_tag_path(ebs_snapshot_tag) %></td>
+        <td><%= link_to 'Destroy', ebs_snapshot_tag, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ebs snapshot tag', new_ebs_snapshot_tag_path %>

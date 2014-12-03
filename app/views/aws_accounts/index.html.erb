@@ -1,0 +1,26 @@
+<table class="table table-bordered datatable" id="groups">
+  <thead>
+    <tr>
+      <th width="90%">Account name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @aws_accounts.each do |aws_account| %>
+      <tr>
+        <td><%= aws_account.account_name %></td>
+        <td><%= link_to 'Show', aws_account, :class =>  'btn btn-info'%></td>
+        <td><%= link_to 'Edit', edit_aws_account_path(aws_account), :class =>  'btn btn-green' %></td>
+        <td><%= button_to 'Destroy', aws_account, method: :delete, data: { confirm: 'Are you sure?' }, :class =>  'btn btn-danger' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Aws account', new_aws_account_path %>
+

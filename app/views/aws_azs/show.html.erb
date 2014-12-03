@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Aws region:</strong>
+  <%= @aws_az.aws_region_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @aws_az.name %>
+</p>
+
+<%= link_to 'Edit', edit_aws_az_path(@aws_az) %> |
+<%= link_to 'Back', aws_azs_path %>

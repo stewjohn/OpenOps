@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  host_id: 1
+  instance_id: MyString
+  owner_id: 
+  state_code: 1
+  state: MyString
+  key_name: MyString
+  monitoring: false
+  instance_type: MyString
+
+two:
+  host_id: 1
+  instance_id: MyString
+  owner_id: 
+  state_code: 1
+  state: MyString
+  key_name: MyString
+  monitoring: false
+  instance_type: MyString
