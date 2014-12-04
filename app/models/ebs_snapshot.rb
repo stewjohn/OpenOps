@@ -17,7 +17,47 @@ class EbsSnapshot < ActiveRecord::Base
 	return snaps
   end
 	
-
+	
+	def self.clean_up_snapshots_for_env(env_id)
+		env  = Environment.with_all.all
+		env.each do |enviro|
+			enviro.hosts.each  do | h |
+				snaps = Array.new
+				dr_snaps = Array.new
+				host = Host.include_all.find(h.id)
+				vols = Instance.volumes(host.instance_id)
+				
+				primary_vpc = AwsVpc.includes(:aws_region).find_by_vpc_id(host.environment.primary_vpc_id)
+				dr_vpc = AwsVpc.includes(:aws_region).find_by_vpc_id(host.environment.dr_vpc_id)
+				
+				EbsSnapshot.where(replicant_of: vols).where("created_at < '#{Time.now.utc - enviro.backup_retention.days}'").select(:snapshot_id){|s| dr_snaps.push s.snapshot_id}
+				EbsSnapshot.where(volume_id: vols).where("created_at < '#{Time.now.utc - enviro.backup_retention.days}'").select(:snapshot_id){|s| snaps.push s.snapshot_id}
+				
+				 creds = Aws::Credentials.new(enviro.aws_account.access_key_id, enviro.aws_account.secrete_access_key)
+                 ec2 = Aws::EC2::Client.new(region: primary_vpc.aws_region.name, credentials: creds, http_proxy: PROXY)
+				 dr_ec2 = Aws::EC2::Client.new(region: dr_vpc.aws_region.name, credentials: creds, http_proxy: PROXY)
+				
+				snaps.each  do | snap |
+					begin 
+						ec2.delete_snapshot(snapshot_id: snap)
+					rescue 
+					
+					end
+				end
+				
+				dr_snaps.each  do | snap |
+					begin
+						dr_ec2.delete_snapshot(snapshot_id: snap)
+					rescue 
+					 
+					end
+				end
+				
+				EbsSnapshot.where(snapshot_id: snaps).update_all(state: "Deleted") 
+				EbsSnapshot.where(snapshot_id: dr_snaps).update_all(state: "Deleted") 				
+			end 
+		end	
+	end
 
   def self.update_snapshots
     AwsAccount.all.each do |account|

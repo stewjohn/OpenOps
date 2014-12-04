@@ -136,7 +136,39 @@
   </tbody>
 </table>
 
+<h2><small>Last 5 DR Replicated Snapshots</small></h2>
 
+<table class="table table-condensed table-bordered table-hover table-striped">
+  <thead>
+    <tr>
+      <th>Snapshot</th>
+      <th>Volume</th>
+      <th>State</th>
+      <th>Start time</th>
+      <th>Progress</th>
+      <th>Description</th>
+      <th>Volume size</th>
+      <th>Encrypted</th>
+      <th>Replicated</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dr_snapshots.each do |ebs_snapshot| %>
+      <tr>
+        <td><%= ebs_snapshot.snapshot_id %></td>
+        <td><%= ebs_snapshot.volume_id %></td>
+        <td><%= ebs_snapshot.state %></td>
+        <td><%= ebs_snapshot.start_time %></td>
+        <td><%= ebs_snapshot.progress %></td>
+        <td><%= ebs_snapshot.description %></td>
+        <td><%= ebs_snapshot.volume_size %></td>
+        <td><%= ebs_snapshot.encrypted %></td>
+        <td><%= ebs_snapshot.replicated %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 
   <%= render 'application/page_end' %>

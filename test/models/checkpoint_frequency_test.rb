@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CheckpointFequencyTest < ActiveSupport::TestCase
+class CheckpointFrequencyTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

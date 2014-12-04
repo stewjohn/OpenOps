@@ -22,6 +22,8 @@ class EbsVolume < ActiveRecord::Base
 	        ec2.create_tags(resources: ["#{snap.snapshot_id}"], tags: [{key: "SYSID", value: "#{host.sysid.name}"}])
         	ec2.create_tags(resources: ["#{snap.snapshot_id}"], tags: [{key: "host_id", value: "#{host.id}"}])
 	end
+  host.last_checkpoint = Time.now.utc
+  host.save 
   end
 
   def self.update_volumes

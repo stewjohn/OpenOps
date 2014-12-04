@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141203145457) do
+ActiveRecord::Schema.define(version: 20141203171640) do
 
   create_table "aws_accounts", force: true do |t|
     t.string   "account_name"
@@ -71,6 +71,13 @@ ActiveRecord::Schema.define(version: 20141203145457) do
   end
 
   create_table "checkpoint_fequencies", force: true do |t|
+    t.string   "name"
+    t.integer  "hours_apart"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "checkpoint_frequencies", force: true do |t|
     t.string   "name"
     t.integer  "hours_apart"
     t.datetime "created_at"
@@ -137,6 +144,7 @@ ActiveRecord::Schema.define(version: 20141203145457) do
     t.boolean  "dr_enabled"
     t.integer  "checkpoint_frequency_id"
     t.integer  "dr_lead_time"
+    t.integer  "backup_retention"
   end
 
   create_table "host_states", force: true do |t|
@@ -156,6 +164,7 @@ ActiveRecord::Schema.define(version: 20141203145457) do
     t.datetime "updated_at"
     t.integer  "sysid_id"
     t.string   "instance_id"
+    t.datetime "last_checkpoint"
   end
 
   create_table "indices", force: true do |t|

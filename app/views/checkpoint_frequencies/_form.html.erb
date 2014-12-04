@@ -1,10 +1,10 @@
-<%= form_for(@checkpoint_fequency) do |f| %>
-  <% if @checkpoint_fequency.errors.any? %>
+<%= form_for(@checkpoint_frequency) do |f| %>
+  <% if @checkpoint_frequency.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@checkpoint_fequency.errors.count, "error") %> prohibited this checkpoint_fequency from being saved:</h2>
+      <h2><%= pluralize(@checkpoint_frequency.errors.count, "error") %> prohibited this checkpoint_frequency from being saved:</h2>
 
       <ul>
-      <% @checkpoint_fequency.errors.full_messages.each do |message| %>
+      <% @checkpoint_frequency.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>

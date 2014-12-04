@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :checkpoint_frequencies
+
   resources :sysids
 
   resources :ebs_snapshot_tags
@@ -8,8 +10,6 @@ Rails.application.routes.draw do
   resources :ebs_volumes
 
   resources :ebs_volume_tags
-
-  resources :checkpoint_fequencies
 
   resources :instance_eni_tags
 

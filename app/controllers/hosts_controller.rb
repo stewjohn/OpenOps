@@ -14,6 +14,10 @@ class HostsController < ApplicationController
     @instance_eni_mappings = InstanceEniMapping.joins(:instance_eni).where(instance_id: @host.instance_id )
     @instance_block_device_mappings = InstanceBlockDeviceMapping.join_all.where(instance_id: @host.instance_id)
     @ebs_snapshots =  EbsSnapshot.latest_snaps(@host.instance_id).order(created_at: :desc).limit(5)
+	vols = Instance.volumes(@host.instance_id)
+	
+	@dr_snapshots = EbsSnapshot.where(replicant_of: vols).order(created_at: :desc).limit(5)
+	
   end
 
   # GET /hosts/new

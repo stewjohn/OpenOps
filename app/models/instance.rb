@@ -5,9 +5,9 @@ class Instance < ActiveRecord::Base
   has_one :aws_region, through: :aws_vpc
   has_many :instance_block_device_mappings, primary_key: 'instance_id', foreign_key: 'instance_id'
   
-  validates :instance_id, :state, :key_name, :instance_type, :launch_time, :subnet_id, :vpc_id,
+  validates :instance_id, :state, :instance_type, :launch_time,
             :architecture, :root_device_type, :root_device_name,
-            :virtualization_type, :client_token, :source_dest_check, :hypervisor, presence: true
+            :virtualization_type, :client_token, :hypervisor, presence: true
 
 
   def self.with_map

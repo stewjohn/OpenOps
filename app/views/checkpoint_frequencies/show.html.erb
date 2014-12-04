@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @checkpoint_frequency.name %>
+</p>
+
+<p>
+  <strong>Hours apart:</strong>
+  <%= @checkpoint_frequency.hours_apart %>
+</p>
+
+<%= link_to 'Edit', edit_checkpoint_frequency_path(@checkpoint_frequency) %> |
+<%= link_to 'Back', checkpoint_frequencies_path %>

@@ -5,7 +5,7 @@ class Host < ActiveRecord::Base
   has_one :aws_account, through: :environment, primary_key: 'account_number'
 
   def self.include_all
-    self.includes(:environment,:sysid,:instance,:aws_account)
+    self.includes(:environment,:sysid,:instance)
   end
 
   def self.dr_replicate(host_id) 
