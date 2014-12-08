@@ -40,7 +40,7 @@ class HostsController < ApplicationController
   # POST /hosts.json
   def create
     @host = Host.new(host_params)
-    instance = Instacne.find_by_instance_id(@host.instance_id)
+    instance = Instance.find_by_instance_id(@host.instance_id)
     sysid = Sysid.find(@host.sysid_id)
     respond_to do |format|
       if @host.save
@@ -48,8 +48,8 @@ class HostsController < ApplicationController
 	instance.save
 	Instance.add_update_tag(@host.instance_id,"Name",@host.hostname)
 	Instance.add_update_tag(@host.instance_id,"SYSID",sysid.name)
-        Instance.update_volume_tags(@host.instance_id,"Name",@host.hostname)
-        Instance.update_volume_tags(@host.instance_id,"SYSID",sysid.name)
+    Instance.update_volume_tags(@host.instance_id,"Name",@host.hostname)
+    Instance.update_volume_tags(@host.instance_id,"SYSID",sysid.name)
 	Instance.update_volume_tags(@host.instance_id,"host_id",@host.id)
 	format.html { redirect_to @host, notice: 'Host was successfully created.' }
         format.json { render :show, status: :created, location: @host }

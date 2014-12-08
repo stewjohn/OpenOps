@@ -11,7 +11,7 @@ class EbsVolume < ActiveRecord::Base
 	instance = Instance.joins(:aws_region).find_by_instance_id(host.instance_id) 
 	vols = Instance.volumes(host.instance_id)
 	creds = Aws::Credentials.new(env.aws_account.access_key_id, env.aws_account.secrete_access_key)
-        ec2 = Aws::EC2::Client.new(region: instance.aws_region.name, credentials: creds, http_proxy: PROXY)
+    ec2 = Aws::EC2::Client.new(region: instance.aws_region.name, credentials: creds, http_proxy: PROXY)
 	vols.each do |vol| 
 		snap = ec2.create_snapshot(volume_id: vol)
 		EbsSnapshot.create(snapshot_id: snap.snapshot_id, volume_id: snap.volume_id, state: snap.state, 
