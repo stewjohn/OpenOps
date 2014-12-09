@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :aws_dhcp_options
+
+  resources :aws_elastic_ips
+
+  resources :aws_account_attributes
+
   resources :checkpoint_frequencies
 
   resources :sysids

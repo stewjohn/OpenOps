@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141203171640) do
+ActiveRecord::Schema.define(version: 20141208172229) do
+
+  create_table "aws_account_attributes", force: true do |t|
+    t.integer  "aws_account_id"
+    t.string   "attribute_name"
+    t.string   "attribute_value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "aws_region_id"
+  end
 
   create_table "aws_accounts", force: true do |t|
     t.string   "account_name"
@@ -26,6 +35,22 @@ ActiveRecord::Schema.define(version: 20141203171640) do
   create_table "aws_azs", force: true do |t|
     t.integer  "aws_region_id"
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "state"
+  end
+
+  create_table "aws_elastic_ips", force: true do |t|
+    t.integer  "aws_account_id"
+    t.integer  "aws_region_id"
+    t.string   "instance_id"
+    t.string   "public_ip"
+    t.string   "allocation_id"
+    t.string   "association_id"
+    t.string   "domain"
+    t.string   "network_interface_id"
+    t.string   "network_interface_owner_id"
+    t.string   "private_ip_address"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

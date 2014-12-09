@@ -6,6 +6,7 @@ gem 'aws-sdk', '2.0.6.pre'
 gem 'rails', '4.1.8'
 #active record post
 gem 'pg'
+gem 'railroady'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets

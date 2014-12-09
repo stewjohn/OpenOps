@@ -8,17 +8,17 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.js )
 PROXY = "https://proxy:8080"
 
-def test_creds
-  @account = AwsAccount.find(1)
+def setup_creds(cred_account)
+  @account = AwsAccount.find(cred_account)
   creds = Aws::Credentials.new(@account.access_key_id, @account.secrete_access_key)
 end 
 
-def setup_ec2 
-  creds = test_creds 
-  return Aws::EC2::Client.new(region: "us-east-1", credentials: creds, http_proxy: PROXY)
+def setup_ec2(account=1, region="us-east-1")
+  creds =  setup_creds(account) 
+  return Aws::EC2::Client.new(region: region, credentials: creds, http_proxy: PROXY)
 end
 
-def setup_cw 
-  creds = test_creds
+def setup_cw(account=1)
+  creds = setup_creds(account)
   return Aws::CloudWatch::Client.new(region: "us-east-1", credentials: creds, http_proxy: PROXY)
 end 

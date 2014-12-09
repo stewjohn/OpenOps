@@ -1,4 +1,9 @@
 class InstanceEni < ActiveRecord::Base
+has_many :instance_eni_tags, primary_key: 'network_interface_id', foreign_key: 'network_interface_id' 
+belongs_to :aws_subnet 
+belongs_to :aws_vpc 
+belongs_to :instances 
+belongs_to :hosts
 
   def self.update_eni
     AwsAccount.all.each do |account|
