@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Aws account:</strong>
+  <%= @aws_internet_gateway.aws_account_id %>
+</p>
+
+<p>
+  <strong>Aws region:</strong>
+  <%= @aws_internet_gateway.aws_region_id %>
+</p>
+
+<p>
+  <strong>Internet gateway:</strong>
+  <%= @aws_internet_gateway.internet_gateway_id %>
+</p>
+
+<p>
+  <strong>Attachment vpc:</strong>
+  <%= @aws_internet_gateway.attachment_vpc_id %>
+</p>
+
+<p>
+  <strong>Attachment state:</strong>
+  <%= @aws_internet_gateway.attachment_state %>
+</p>
+
+<%= link_to 'Edit', edit_aws_internet_gateway_path(@aws_internet_gateway) %> |
+<%= link_to 'Back', aws_internet_gateways_path %>

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Aws account:</strong>
+  <%= @aws_key_pair.aws_account_id %>
+</p>
+
+<p>
+  <strong>Aws region:</strong>
+  <%= @aws_key_pair.aws_region_id %>
+</p>
+
+<p>
+  <strong>Key name:</strong>
+  <%= @aws_key_pair.key_name %>
+</p>
+
+<p>
+  <strong>Key fingerprint:</strong>
+  <%= @aws_key_pair.key_fingerprint %>
+</p>
+
+<%= link_to 'Edit', edit_aws_key_pair_path(@aws_key_pair) %> |
+<%= link_to 'Back', aws_key_pairs_path %>

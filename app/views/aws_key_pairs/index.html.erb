@@ -1,0 +1,31 @@
+<h1>Listing aws_key_pairs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Aws account</th>
+      <th>Aws region</th>
+      <th>Key name</th>
+      <th>Key fingerprint</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @aws_key_pairs.each do |aws_key_pair| %>
+      <tr>
+        <td><%= aws_key_pair.aws_account_id %></td>
+        <td><%= aws_key_pair.aws_region_id %></td>
+        <td><%= aws_key_pair.key_name %></td>
+        <td><%= aws_key_pair.key_fingerprint %></td>
+        <td><%= link_to 'Show', aws_key_pair %></td>
+        <td><%= link_to 'Edit', edit_aws_key_pair_path(aws_key_pair) %></td>
+        <td><%= link_to 'Destroy', aws_key_pair, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Aws key pair', new_aws_key_pair_path %>

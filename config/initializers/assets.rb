@@ -18,7 +18,7 @@ def setup_ec2(account=1, region="us-east-1")
   return Aws::EC2::Client.new(region: region, credentials: creds, http_proxy: PROXY)
 end
 
-def setup_cw(account=1)
-  creds = setup_creds(account)
-  return Aws::CloudWatch::Client.new(region: "us-east-1", credentials: creds, http_proxy: PROXY)
+def setup_cw(account=1, region="us-east-1")
+  creds =  setup_creds(account) 
+  return Aws::CloudWatch::Client.new(region:  region, credentials: creds, http_proxy: PROXY)
 end 

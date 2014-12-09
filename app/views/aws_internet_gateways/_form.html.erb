@@ -1,0 +1,37 @@
+<%= form_for(@aws_internet_gateway) do |f| %>
+  <% if @aws_internet_gateway.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@aws_internet_gateway.errors.count, "error") %> prohibited this aws_internet_gateway from being saved:</h2>
+
+      <ul>
+      <% @aws_internet_gateway.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :aws_account_id %><br>
+    <%= f.number_field :aws_account_id %>
+  </div>
+  <div class="field">
+    <%= f.label :aws_region_id %><br>
+    <%= f.number_field :aws_region_id %>
+  </div>
+  <div class="field">
+    <%= f.label :internet_gateway_id %><br>
+    <%= f.text_field :internet_gateway_id %>
+  </div>
+  <div class="field">
+    <%= f.label :attachment_vpc_id %><br>
+    <%= f.text_field :attachment_vpc_id %>
+  </div>
+  <div class="field">
+    <%= f.label :attachment_state %><br>
+    <%= f.text_field :attachment_state %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

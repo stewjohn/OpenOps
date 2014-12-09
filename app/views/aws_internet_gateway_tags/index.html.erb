@@ -1,0 +1,29 @@
+<h1>Listing aws_internet_gateway_tags</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Internet gateway</th>
+      <th>Key</th>
+      <th>Value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @aws_internet_gateway_tags.each do |aws_internet_gateway_tag| %>
+      <tr>
+        <td><%= aws_internet_gateway_tag.internet_gateway_id %></td>
+        <td><%= aws_internet_gateway_tag.key %></td>
+        <td><%= aws_internet_gateway_tag.value %></td>
+        <td><%= link_to 'Show', aws_internet_gateway_tag %></td>
+        <td><%= link_to 'Edit', edit_aws_internet_gateway_tag_path(aws_internet_gateway_tag) %></td>
+        <td><%= link_to 'Destroy', aws_internet_gateway_tag, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Aws internet gateway tag', new_aws_internet_gateway_tag_path %>

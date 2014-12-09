@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Internet gateway:</strong>
+  <%= @aws_internet_gateway_tag.internet_gateway_id %>
+</p>
+
+<p>
+  <strong>Key:</strong>
+  <%= @aws_internet_gateway_tag.key %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @aws_internet_gateway_tag.value %>
+</p>
+
+<%= link_to 'Edit', edit_aws_internet_gateway_tag_path(@aws_internet_gateway_tag) %> |
+<%= link_to 'Back', aws_internet_gateway_tags_path %>

@@ -1,6 +1,5 @@
 class AwsAz < ActiveRecord::Base
-belongs_to :aws_region
-
+belongs_to :aws_region 
 
 	def self.update_az
 			AwsAccount.all.each do |account|

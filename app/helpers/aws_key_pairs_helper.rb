@@ -1,0 +1,2 @@
+module AwsKeyPairsHelper
+end

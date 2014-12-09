@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  aws_account_id: 1
+  aws_region_id: 1
+  key_name: MyString
+  key_fingerprint: MyString
+
+two:
+  aws_account_id: 1
+  aws_region_id: 1
+  key_name: MyString
+  key_fingerprint: MyString

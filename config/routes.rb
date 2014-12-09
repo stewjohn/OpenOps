@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :aws_key_pairs
+
+  resources :aws_internet_gateway_tags
+
+  resources :aws_internet_gateways
+
   resources :aws_dhcp_option_attributes
 
   resources :aws_dhcp_options

@@ -6,8 +6,10 @@ AwsAccountAttribute.update_attr
 AwsElasticIp.update_eip
 AwsAz.update_az
 AwsVpc.update_vpcs
+AwsInternetGateway.update_gw
 AwsDhcpOption.update_options
 AwsSubnet.update_subnets
+AwsKeypair.update_keys
 Instance.update_instances
 InstanceEni.update_eni
 EbsVolume.update_volumes

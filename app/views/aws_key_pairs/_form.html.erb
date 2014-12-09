@@ -1,0 +1,33 @@
+<%= form_for(@aws_key_pair) do |f| %>
+  <% if @aws_key_pair.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@aws_key_pair.errors.count, "error") %> prohibited this aws_key_pair from being saved:</h2>
+
+      <ul>
+      <% @aws_key_pair.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :aws_account_id %><br>
+    <%= f.number_field :aws_account_id %>
+  </div>
+  <div class="field">
+    <%= f.label :aws_region_id %><br>
+    <%= f.number_field :aws_region_id %>
+  </div>
+  <div class="field">
+    <%= f.label :key_name %><br>
+    <%= f.text_field :key_name %>
+  </div>
+  <div class="field">
+    <%= f.label :key_fingerprint %><br>
+    <%= f.text_field :key_fingerprint %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

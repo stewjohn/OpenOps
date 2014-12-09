@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141209154204) do
+ActiveRecord::Schema.define(version: 20141209222557) do
 
   create_table "aws_account_attributes", force: true do |t|
     t.integer  "aws_account_id"
@@ -67,6 +67,33 @@ ActiveRecord::Schema.define(version: 20141209154204) do
     t.string   "network_interface_id"
     t.string   "network_interface_owner_id"
     t.string   "private_ip_address"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "aws_internet_gateway_tags", force: true do |t|
+    t.string   "internet_gateway_id"
+    t.string   "key"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "aws_internet_gateways", force: true do |t|
+    t.integer  "aws_account_id"
+    t.integer  "aws_region_id"
+    t.string   "internet_gateway_id"
+    t.string   "attachment_vpc_id"
+    t.string   "attachment_state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "aws_key_pairs", force: true do |t|
+    t.integer  "aws_account_id"
+    t.integer  "aws_region_id"
+    t.string   "key_name"
+    t.string   "key_fingerprint"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

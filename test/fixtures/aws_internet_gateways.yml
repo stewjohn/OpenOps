@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  aws_account_id: 1
+  aws_region_id: 1
+  internet_gateway_id: MyString
+  attachment_vpc_id: MyString
+  attachment_state: MyString
+
+two:
+  aws_account_id: 1
+  aws_region_id: 1
+  internet_gateway_id: MyString
+  attachment_vpc_id: MyString
+  attachment_state: MyString
