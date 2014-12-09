@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141208172229) do
+ActiveRecord::Schema.define(version: 20141209154204) do
 
   create_table "aws_account_attributes", force: true do |t|
     t.integer  "aws_account_id"
@@ -38,6 +38,22 @@ ActiveRecord::Schema.define(version: 20141208172229) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "state"
+  end
+
+  create_table "aws_dhcp_option_attributes", force: true do |t|
+    t.string   "dhcp_options_id"
+    t.string   "key"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "aws_dhcp_options", force: true do |t|
+    t.integer  "aws_account_id"
+    t.integer  "aws_region_id"
+    t.string   "dhcp_options_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "aws_elastic_ips", force: true do |t|

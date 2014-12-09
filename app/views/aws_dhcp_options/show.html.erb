@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Aws account:</strong>
+  <%= @aws_dhcp_option.aws_account_id %>
+</p>
+
+<p>
+  <strong>Aws region:</strong>
+  <%= @aws_dhcp_option.aws_region_id %>
+</p>
+
+<p>
+  <strong>Dhcp options:</strong>
+  <%= @aws_dhcp_option.dhcp_options_id %>
+</p>
+
+<%= link_to 'Edit', edit_aws_dhcp_option_path(@aws_dhcp_option) %> |
+<%= link_to 'Back', aws_dhcp_options_path %>

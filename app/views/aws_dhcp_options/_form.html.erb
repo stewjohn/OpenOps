@@ -1,0 +1,29 @@
+<%= form_for(@aws_dhcp_option) do |f| %>
+  <% if @aws_dhcp_option.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@aws_dhcp_option.errors.count, "error") %> prohibited this aws_dhcp_option from being saved:</h2>
+
+      <ul>
+      <% @aws_dhcp_option.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :aws_account_id %><br>
+    <%= f.number_field :aws_account_id %>
+  </div>
+  <div class="field">
+    <%= f.label :aws_region_id %><br>
+    <%= f.number_field :aws_region_id %>
+  </div>
+  <div class="field">
+    <%= f.label :dhcp_options_id %><br>
+    <%= f.text_field :dhcp_options_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

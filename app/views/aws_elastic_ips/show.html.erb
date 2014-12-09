@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Aws account:</strong>
+  <%= @aws_elastic_ip.aws_account_id %>
+</p>
+
+<p>
+  <strong>Aws region:</strong>
+  <%= @aws_elastic_ip.aws_region_id %>
+</p>
+
+<p>
+  <strong>Instance:</strong>
+  <%= @aws_elastic_ip.instance_id %>
+</p>
+
+<p>
+  <strong>Public ip:</strong>
+  <%= @aws_elastic_ip.public_ip %>
+</p>
+
+<p>
+  <strong>Allocation:</strong>
+  <%= @aws_elastic_ip.allocation_id %>
+</p>
+
+<p>
+  <strong>Association:</strong>
+  <%= @aws_elastic_ip.association_id %>
+</p>
+
+<p>
+  <strong>Domain:</strong>
+  <%= @aws_elastic_ip.domain %>
+</p>
+
+<p>
+  <strong>Network interface:</strong>
+  <%= @aws_elastic_ip.network_interface_id %>
+</p>
+
+<p>
+  <strong>Network interface owner:</strong>
+  <%= @aws_elastic_ip.network_interface_owner_id %>
+</p>
+
+<p>
+  <strong>Private ip address:</strong>
+  <%= @aws_elastic_ip.private_ip_address %>
+</p>
+
+<%= link_to 'Edit', edit_aws_elastic_ip_path(@aws_elastic_ip) %> |
+<%= link_to 'Back', aws_elastic_ips_path %>

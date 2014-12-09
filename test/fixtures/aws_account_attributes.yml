@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  aws_account_id: 1
+  attribute_name: MyString
+  attribute_value: MyString
+
+two:
+  aws_account_id: 1
+  attribute_name: MyString
+  attribute_value: MyString

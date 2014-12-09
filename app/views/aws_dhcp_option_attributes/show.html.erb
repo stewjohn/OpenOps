@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dhcp options:</strong>
+  <%= @aws_dhcp_option_attribute.dhcp_options_id %>
+</p>
+
+<p>
+  <strong>Key:</strong>
+  <%= @aws_dhcp_option_attribute.key %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @aws_dhcp_option_attribute.value %>
+</p>
+
+<%= link_to 'Edit', edit_aws_dhcp_option_attribute_path(@aws_dhcp_option_attribute) %> |
+<%= link_to 'Back', aws_dhcp_option_attributes_path %>

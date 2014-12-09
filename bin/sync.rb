@@ -6,6 +6,7 @@ AwsAccountAttribute.update_attr
 AwsElasticIp.update_eip
 AwsAz.update_az
 AwsVpc.update_vpcs
+AwsDhcpOption.update_options
 AwsSubnet.update_subnets
 Instance.update_instances
 InstanceEni.update_eni

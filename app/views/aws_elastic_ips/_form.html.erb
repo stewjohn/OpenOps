@@ -1,0 +1,57 @@
+<%= form_for(@aws_elastic_ip) do |f| %>
+  <% if @aws_elastic_ip.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@aws_elastic_ip.errors.count, "error") %> prohibited this aws_elastic_ip from being saved:</h2>
+
+      <ul>
+      <% @aws_elastic_ip.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :aws_account_id %><br>
+    <%= f.number_field :aws_account_id %>
+  </div>
+  <div class="field">
+    <%= f.label :aws_region_id %><br>
+    <%= f.number_field :aws_region_id %>
+  </div>
+  <div class="field">
+    <%= f.label :instance_id %><br>
+    <%= f.text_field :instance_id %>
+  </div>
+  <div class="field">
+    <%= f.label :public_ip %><br>
+    <%= f.text_field :public_ip %>
+  </div>
+  <div class="field">
+    <%= f.label :allocation_id %><br>
+    <%= f.text_field :allocation_id %>
+  </div>
+  <div class="field">
+    <%= f.label :association_id %><br>
+    <%= f.text_field :association_id %>
+  </div>
+  <div class="field">
+    <%= f.label :domain %><br>
+    <%= f.text_field :domain %>
+  </div>
+  <div class="field">
+    <%= f.label :network_interface_id %><br>
+    <%= f.text_field :network_interface_id %>
+  </div>
+  <div class="field">
+    <%= f.label :network_interface_owner_id %><br>
+    <%= f.text_field :network_interface_owner_id %>
+  </div>
+  <div class="field">
+    <%= f.label :private_ip_address %><br>
+    <%= f.text_field :private_ip_address %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

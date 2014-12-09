@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :aws_dhcp_option_attributes
+
   resources :aws_dhcp_options
 
   resources :aws_elastic_ips

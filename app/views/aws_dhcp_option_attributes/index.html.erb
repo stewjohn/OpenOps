@@ -1,0 +1,29 @@
+<h1>Listing aws_dhcp_option_attributes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dhcp options</th>
+      <th>Key</th>
+      <th>Value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @aws_dhcp_option_attributes.each do |aws_dhcp_option_attribute| %>
+      <tr>
+        <td><%= aws_dhcp_option_attribute.dhcp_options_id %></td>
+        <td><%= aws_dhcp_option_attribute.key %></td>
+        <td><%= aws_dhcp_option_attribute.value %></td>
+        <td><%= link_to 'Show', aws_dhcp_option_attribute %></td>
+        <td><%= link_to 'Edit', edit_aws_dhcp_option_attribute_path(aws_dhcp_option_attribute) %></td>
+        <td><%= link_to 'Destroy', aws_dhcp_option_attribute, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Aws dhcp option attribute', new_aws_dhcp_option_attribute_path %>

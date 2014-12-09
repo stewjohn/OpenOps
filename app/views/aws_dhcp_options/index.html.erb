@@ -1,0 +1,29 @@
+<h1>Listing aws_dhcp_options</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Aws account</th>
+      <th>Aws region</th>
+      <th>Dhcp options</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @aws_dhcp_options.each do |aws_dhcp_option| %>
+      <tr>
+        <td><%= aws_dhcp_option.aws_account_id %></td>
+        <td><%= aws_dhcp_option.aws_region_id %></td>
+        <td><%= aws_dhcp_option.dhcp_options_id %></td>
+        <td><%= link_to 'Show', aws_dhcp_option %></td>
+        <td><%= link_to 'Edit', edit_aws_dhcp_option_path(aws_dhcp_option) %></td>
+        <td><%= link_to 'Destroy', aws_dhcp_option, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Aws dhcp option', new_aws_dhcp_option_path %>

@@ -1,0 +1,1 @@
+json.extract! @aws_elastic_ip, :id, :aws_account_id, :aws_region_id, :instance_id, :public_ip, :allocation_id, :association_id, :domain, :network_interface_id, :network_interface_owner_id, :private_ip_address, :created_at, :updated_at

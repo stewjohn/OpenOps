@@ -1,0 +1,43 @@
+<h1>Listing aws_elastic_ips</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Aws account</th>
+      <th>Aws region</th>
+      <th>Instance</th>
+      <th>Public ip</th>
+      <th>Allocation</th>
+      <th>Association</th>
+      <th>Domain</th>
+      <th>Network interface</th>
+      <th>Network interface owner</th>
+      <th>Private ip address</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @aws_elastic_ips.each do |aws_elastic_ip| %>
+      <tr>
+        <td><%= aws_elastic_ip.aws_account_id %></td>
+        <td><%= aws_elastic_ip.aws_region_id %></td>
+        <td><%= aws_elastic_ip.instance_id %></td>
+        <td><%= aws_elastic_ip.public_ip %></td>
+        <td><%= aws_elastic_ip.allocation_id %></td>
+        <td><%= aws_elastic_ip.association_id %></td>
+        <td><%= aws_elastic_ip.domain %></td>
+        <td><%= aws_elastic_ip.network_interface_id %></td>
+        <td><%= aws_elastic_ip.network_interface_owner_id %></td>
+        <td><%= aws_elastic_ip.private_ip_address %></td>
+        <td><%= link_to 'Show', aws_elastic_ip %></td>
+        <td><%= link_to 'Edit', edit_aws_elastic_ip_path(aws_elastic_ip) %></td>
+        <td><%= link_to 'Destroy', aws_elastic_ip, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Aws elastic ip', new_aws_elastic_ip_path %>

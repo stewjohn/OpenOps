@@ -1,0 +1,2 @@
+module AwsAccountAttributesHelper
+end

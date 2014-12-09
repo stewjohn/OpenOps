@@ -1,0 +1,2 @@
+module AwsDhcpOptionAttributesHelper
+end

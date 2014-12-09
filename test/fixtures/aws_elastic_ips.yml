@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  aws_account_id: 1
+  aws_region_id: 1
+  instance_id: MyString
+  public_ip: MyString
+  allocation_id: MyString
+  association_id: MyString
+  domain: MyString
+  network_interface_id: MyString
+  network_interface_owner_id: MyString
+  private_ip_address: MyString
+
+two:
+  aws_account_id: 1
+  aws_region_id: 1
+  instance_id: MyString
+  public_ip: MyString
+  allocation_id: MyString
+  association_id: MyString
+  domain: MyString
+  network_interface_id: MyString
+  network_interface_owner_id: MyString
+  private_ip_address: MyString

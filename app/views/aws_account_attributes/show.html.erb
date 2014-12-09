@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Aws account:</strong>
+  <%= @aws_account_attribute.aws_account_id %>
+</p>
+
+<p>
+  <strong>Attribute name:</strong>
+  <%= @aws_account_attribute.attribute_name %>
+</p>
+
+<p>
+  <strong>Attribute value:</strong>
+  <%= @aws_account_attribute.attribute_value %>
+</p>
+
+<%= link_to 'Edit', edit_aws_account_attribute_path(@aws_account_attribute) %> |
+<%= link_to 'Back', aws_account_attributes_path %>

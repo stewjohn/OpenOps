@@ -1,0 +1,29 @@
+<h1>Listing aws_account_attributes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Aws account</th>
+      <th>Attribute name</th>
+      <th>Attribute value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @aws_account_attributes.each do |aws_account_attribute| %>
+      <tr>
+        <td><%= aws_account_attribute.aws_account_id %></td>
+        <td><%= aws_account_attribute.attribute_name %></td>
+        <td><%= aws_account_attribute.attribute_value %></td>
+        <td><%= link_to 'Show', aws_account_attribute %></td>
+        <td><%= link_to 'Edit', edit_aws_account_attribute_path(aws_account_attribute) %></td>
+        <td><%= link_to 'Destroy', aws_account_attribute, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Aws account attribute', new_aws_account_attribute_path %>
