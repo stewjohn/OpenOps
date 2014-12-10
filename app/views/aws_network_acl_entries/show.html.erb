@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Network acl:</strong>
+  <%= @aws_network_acl_entry.network_acl_id %>
+</p>
+
+<p>
+  <strong>Rule number:</strong>
+  <%= @aws_network_acl_entry.rule_number %>
+</p>
+
+<p>
+  <strong>Protocol:</strong>
+  <%= @aws_network_acl_entry.protocol %>
+</p>
+
+<p>
+  <strong>Rule action:</strong>
+  <%= @aws_network_acl_entry.rule_action %>
+</p>
+
+<p>
+  <strong>Egress:</strong>
+  <%= @aws_network_acl_entry.egress %>
+</p>
+
+<p>
+  <strong>Cidr block:</strong>
+  <%= @aws_network_acl_entry.cidr_block %>
+</p>
+
+<p>
+  <strong>Icmp type code:</strong>
+  <%= @aws_network_acl_entry.icmp_type_code %>
+</p>
+
+<p>
+  <strong>Port range from:</strong>
+  <%= @aws_network_acl_entry.port_range_from %>
+</p>
+
+<p>
+  <strong>Port range to:</strong>
+  <%= @aws_network_acl_entry.port_range_to %>
+</p>
+
+<%= link_to 'Edit', edit_aws_network_acl_entry_path(@aws_network_acl_entry) %> |
+<%= link_to 'Back', aws_network_acl_entries_path %>

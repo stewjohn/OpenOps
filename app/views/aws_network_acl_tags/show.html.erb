@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Network acl:</strong>
+  <%= @aws_network_acl_tag.network_acl_id %>
+</p>
+
+<p>
+  <strong>Key:</strong>
+  <%= @aws_network_acl_tag.key %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @aws_network_acl_tag.value %>
+</p>
+
+<%= link_to 'Edit', edit_aws_network_acl_tag_path(@aws_network_acl_tag) %> |
+<%= link_to 'Back', aws_network_acl_tags_path %>

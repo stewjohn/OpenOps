@@ -1,0 +1,35 @@
+<h1>Listing aws_network_acls</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Aws account</th>
+      <th>Aws region</th>
+      <th>Network acl</th>
+      <th>Association</th>
+      <th>Association acl</th>
+      <th>Association subnet</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @aws_network_acls.each do |aws_network_acl| %>
+      <tr>
+        <td><%= aws_network_acl.aws_account_id %></td>
+        <td><%= aws_network_acl.aws_region_id %></td>
+        <td><%= aws_network_acl.network_acl_id %></td>
+        <td><%= aws_network_acl.association_id %></td>
+        <td><%= aws_network_acl.association_acl_id %></td>
+        <td><%= aws_network_acl.association_subnet_id %></td>
+        <td><%= link_to 'Show', aws_network_acl %></td>
+        <td><%= link_to 'Edit', edit_aws_network_acl_path(aws_network_acl) %></td>
+        <td><%= link_to 'Destroy', aws_network_acl, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Aws network acl', new_aws_network_acl_path %>

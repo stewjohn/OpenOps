@@ -1,0 +1,53 @@
+<%= form_for(@aws_network_acl_entry) do |f| %>
+  <% if @aws_network_acl_entry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@aws_network_acl_entry.errors.count, "error") %> prohibited this aws_network_acl_entry from being saved:</h2>
+
+      <ul>
+      <% @aws_network_acl_entry.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :network_acl_id %><br>
+    <%= f.text_field :network_acl_id %>
+  </div>
+  <div class="field">
+    <%= f.label :rule_number %><br>
+    <%= f.number_field :rule_number %>
+  </div>
+  <div class="field">
+    <%= f.label :protocol %><br>
+    <%= f.text_field :protocol %>
+  </div>
+  <div class="field">
+    <%= f.label :rule_action %><br>
+    <%= f.text_field :rule_action %>
+  </div>
+  <div class="field">
+    <%= f.label :egress %><br>
+    <%= f.check_box :egress %>
+  </div>
+  <div class="field">
+    <%= f.label :cidr_block %><br>
+    <%= f.text_field :cidr_block %>
+  </div>
+  <div class="field">
+    <%= f.label :icmp_type_code %><br>
+    <%= f.number_field :icmp_type_code %>
+  </div>
+  <div class="field">
+    <%= f.label :port_range_from %><br>
+    <%= f.number_field :port_range_from %>
+  </div>
+  <div class="field">
+    <%= f.label :port_range_to %><br>
+    <%= f.number_field :port_range_to %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

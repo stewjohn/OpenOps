@@ -1,0 +1,41 @@
+<%= form_for(@aws_network_acl) do |f| %>
+  <% if @aws_network_acl.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@aws_network_acl.errors.count, "error") %> prohibited this aws_network_acl from being saved:</h2>
+
+      <ul>
+      <% @aws_network_acl.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :aws_account_id %><br>
+    <%= f.number_field :aws_account_id %>
+  </div>
+  <div class="field">
+    <%= f.label :aws_region_id %><br>
+    <%= f.number_field :aws_region_id %>
+  </div>
+  <div class="field">
+    <%= f.label :network_acl_id %><br>
+    <%= f.text_field :network_acl_id %>
+  </div>
+  <div class="field">
+    <%= f.label :association_id %><br>
+    <%= f.text_field :association_id %>
+  </div>
+  <div class="field">
+    <%= f.label :association_acl_id %><br>
+    <%= f.text_field :association_acl_id %>
+  </div>
+  <div class="field">
+    <%= f.label :association_subnet_id %><br>
+    <%= f.text_field :association_subnet_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

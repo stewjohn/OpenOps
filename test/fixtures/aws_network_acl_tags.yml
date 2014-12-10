@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  network_acl_id: MyString
+  key: 
+  value: MyString
+
+two:
+  network_acl_id: MyString
+  key: 
+  value: MyString

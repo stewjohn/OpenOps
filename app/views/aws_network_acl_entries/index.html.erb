@@ -1,0 +1,41 @@
+<h1>Listing aws_network_acl_entries</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Network acl</th>
+      <th>Rule number</th>
+      <th>Protocol</th>
+      <th>Rule action</th>
+      <th>Egress</th>
+      <th>Cidr block</th>
+      <th>Icmp type code</th>
+      <th>Port range from</th>
+      <th>Port range to</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @aws_network_acl_entries.each do |aws_network_acl_entry| %>
+      <tr>
+        <td><%= aws_network_acl_entry.network_acl_id %></td>
+        <td><%= aws_network_acl_entry.rule_number %></td>
+        <td><%= aws_network_acl_entry.protocol %></td>
+        <td><%= aws_network_acl_entry.rule_action %></td>
+        <td><%= aws_network_acl_entry.egress %></td>
+        <td><%= aws_network_acl_entry.cidr_block %></td>
+        <td><%= aws_network_acl_entry.icmp_type_code %></td>
+        <td><%= aws_network_acl_entry.port_range_from %></td>
+        <td><%= aws_network_acl_entry.port_range_to %></td>
+        <td><%= link_to 'Show', aws_network_acl_entry %></td>
+        <td><%= link_to 'Edit', edit_aws_network_acl_entry_path(aws_network_acl_entry) %></td>
+        <td><%= link_to 'Destroy', aws_network_acl_entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Aws network acl entry', new_aws_network_acl_entry_path %>

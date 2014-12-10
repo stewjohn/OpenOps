@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  network_acl_id: MyString
+  rule_number: 1
+  protocol: MyString
+  rule_action: MyString
+  egress: false
+  cidr_block: MyString
+  icmp_type_code: 1
+  port_range_from: 1
+  port_range_to: 1
+
+two:
+  network_acl_id: MyString
+  rule_number: 1
+  protocol: MyString
+  rule_action: MyString
+  egress: false
+  cidr_block: MyString
+  icmp_type_code: 1
+  port_range_from: 1
+  port_range_to: 1

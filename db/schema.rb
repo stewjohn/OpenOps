@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141209222557) do
+ActiveRecord::Schema.define(version: 20141210132518) do
 
   create_table "aws_account_attributes", force: true do |t|
     t.integer  "aws_account_id"
@@ -94,6 +94,39 @@ ActiveRecord::Schema.define(version: 20141209222557) do
     t.integer  "aws_region_id"
     t.string   "key_name"
     t.string   "key_fingerprint"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "aws_network_acl_entries", force: true do |t|
+    t.string   "network_acl_id"
+    t.integer  "rule_number"
+    t.string   "protocol"
+    t.string   "rule_action"
+    t.boolean  "egress"
+    t.string   "cidr_block"
+    t.integer  "icmp_type_code"
+    t.integer  "port_range_from"
+    t.integer  "port_range_to"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "aws_network_acl_tags", force: true do |t|
+    t.string   "network_acl_id"
+    t.string   "key"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "aws_network_acls", force: true do |t|
+    t.integer  "aws_account_id"
+    t.integer  "aws_region_id"
+    t.string   "network_acl_id"
+    t.string   "association_id"
+    t.string   "association_acl_id"
+    t.string   "association_subnet_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

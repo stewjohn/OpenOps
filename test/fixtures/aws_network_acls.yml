@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  aws_account_id: 1
+  aws_region_id: 1
+  network_acl_id: MyString
+  association_id: MyString
+  association_acl_id: MyString
+  association_subnet_id: MyString
+
+two:
+  aws_account_id: 1
+  aws_region_id: 1
+  network_acl_id: MyString
+  association_id: MyString
+  association_acl_id: MyString
+  association_subnet_id: MyString

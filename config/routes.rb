@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :aws_network_acl_tags
+
+  resources :aws_network_acl_entries
+
+  resources :aws_network_acls
+
   resources :aws_key_pairs
 
   resources :aws_internet_gateway_tags
