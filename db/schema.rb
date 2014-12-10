@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141210132518) do
+ActiveRecord::Schema.define(version: 20141210134156) do
 
   create_table "aws_account_attributes", force: true do |t|
     t.integer  "aws_account_id"
@@ -129,6 +129,7 @@ ActiveRecord::Schema.define(version: 20141210132518) do
     t.string   "association_subnet_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "vpc_id"
   end
 
   create_table "aws_regions", force: true do |t|

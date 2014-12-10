@@ -1,7 +1,6 @@
 class AwsKeyPair < ActiveRecord::Base
 belongs_to :aws_account 
 belongs_to :aws_region
-
 has_many :instances, primary_key: "key_name", foreign_key: 'key_name'
 
 def self.update_keys

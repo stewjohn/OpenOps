@@ -7,6 +7,7 @@ AwsElasticIp.update_eip
 AwsAz.update_az
 AwsVpc.update_vpcs
 AwsInternetGateway.update_gw
+AwsNetworkAcl.update_acl
 AwsDhcpOption.update_options
 AwsSubnet.update_subnets
 AwsKeypair.update_keys
