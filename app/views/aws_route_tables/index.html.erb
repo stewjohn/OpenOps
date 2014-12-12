@@ -1,0 +1,31 @@
+<h1>Listing aws_route_tables</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Aws account</th>
+      <th>Aws region</th>
+      <th>Route table</th>
+      <th>Vpc</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @aws_route_tables.each do |aws_route_table| %>
+      <tr>
+        <td><%= aws_route_table.aws_account_id %></td>
+        <td><%= aws_route_table.aws_region_id %></td>
+        <td><%= aws_route_table.route_table_id %></td>
+        <td><%= aws_route_table.vpc_id %></td>
+        <td><%= link_to 'Show', aws_route_table %></td>
+        <td><%= link_to 'Edit', edit_aws_route_table_path(aws_route_table) %></td>
+        <td><%= link_to 'Destroy', aws_route_table, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Aws route table', new_aws_route_table_path %>

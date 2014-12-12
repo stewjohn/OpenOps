@@ -1,0 +1,29 @@
+<h1>Listing aws_route_table_tags</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Route table</th>
+      <th>Key</th>
+      <th>Value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @aws_route_table_tags.each do |aws_route_table_tag| %>
+      <tr>
+        <td><%= aws_route_table_tag.route_table_id %></td>
+        <td><%= aws_route_table_tag.key %></td>
+        <td><%= aws_route_table_tag.value %></td>
+        <td><%= link_to 'Show', aws_route_table_tag %></td>
+        <td><%= link_to 'Edit', edit_aws_route_table_tag_path(aws_route_table_tag) %></td>
+        <td><%= link_to 'Destroy', aws_route_table_tag, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Aws route table tag', new_aws_route_table_tag_path %>

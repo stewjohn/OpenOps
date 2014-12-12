@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Route table:</strong>
+  <%= @aws_route_table_tag.route_table_id %>
+</p>
+
+<p>
+  <strong>Key:</strong>
+  <%= @aws_route_table_tag.key %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @aws_route_table_tag.value %>
+</p>
+
+<%= link_to 'Edit', edit_aws_route_table_tag_path(@aws_route_table_tag) %> |
+<%= link_to 'Back', aws_route_table_tags_path %>

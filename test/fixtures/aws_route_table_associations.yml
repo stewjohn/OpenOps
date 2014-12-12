@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  route_table_id: MyString
+  route_table_association_id: MyString
+  route_table_id: MyString
+  subnet_id: MyString
+  main: false
+
+two:
+  route_table_id: MyString
+  route_table_association_id: MyString
+  route_table_id: MyString
+  subnet_id: MyString
+  main: false

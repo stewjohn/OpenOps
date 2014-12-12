@@ -1,0 +1,2 @@
+module AwsRouteTableAssociationsHelper
+end

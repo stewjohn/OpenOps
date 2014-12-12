@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Route table:</strong>
+  <%= @aws_route_table_propogate.route_table_id %>
+</p>
+
+<p>
+  <strong>Gateway:</strong>
+  <%= @aws_route_table_propogate.gateway_id %>
+</p>
+
+<%= link_to 'Edit', edit_aws_route_table_propogate_path(@aws_route_table_propogate) %> |
+<%= link_to 'Back', aws_route_table_propogates_path %>

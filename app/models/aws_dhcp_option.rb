@@ -2,7 +2,7 @@ class AwsDhcpOption < ActiveRecord::Base
 
 belongs_to :aws_account 
 belongs_to :aws_region
-
+has_many :aws_dhcp_option_attributes, primary_key: 'dhcp_options_id', foreign_key: 'dhcp_options_id'
 
 	def self.update_options
 		AwsAccount.all.each do |account|

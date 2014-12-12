@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  resources :aws_route_table_propogates
+
+  resources :aws_route_table_associations
+
+  resources :aws_route_table_tags
+
+  resources :aws_route_table_routes
+
+  resources :aws_route_tables
+
   resources :aws_network_acl_tags
 
   resources :aws_network_acl_entries

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141210134156) do
+ActiveRecord::Schema.define(version: 20141211175853) do
 
   create_table "aws_account_attributes", force: true do |t|
     t.integer  "aws_account_id"
@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(version: 20141210134156) do
 
   create_table "aws_accounts", force: true do |t|
     t.string   "account_name"
-    t.integer  "environment_id"
     t.string   "access_key_id"
     t.string   "secrete_access_key"
     t.datetime "created_at"
@@ -138,6 +137,53 @@ ActiveRecord::Schema.define(version: 20141210134156) do
     t.datetime "updated_at"
   end
 
+  create_table "aws_route_table_associations", force: true do |t|
+    t.string   "route_table_id"
+    t.string   "route_table_association_id"
+    t.string   "subnet_id"
+    t.boolean  "main"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "aws_route_table_propogates", force: true do |t|
+    t.string   "route_table_id"
+    t.string   "gateway_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "aws_route_table_routes", force: true do |t|
+    t.string   "route_table_id"
+    t.string   "destination_cidr_block"
+    t.string   "gateway_id"
+    t.string   "instance_id"
+    t.string   "instance_owner_id"
+    t.string   "network_interface_id"
+    t.string   "vpc_peering_connection_id"
+    t.string   "state"
+    t.string   "origin"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "aws_route_table_tags", force: true do |t|
+    t.string   "route_table_id"
+    t.string   "key"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "aws_route_tables", force: true do |t|
+    t.integer  "aws_account_id"
+    t.integer  "aws_region_id"
+    t.string   "route_table_id"
+    t.string   "vpc_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "aws_subnets", force: true do |t|
     t.string   "subnet_id"
     t.string   "state"
@@ -247,6 +293,7 @@ ActiveRecord::Schema.define(version: 20141210134156) do
     t.integer  "checkpoint_frequency_id"
     t.integer  "dr_lead_time"
     t.integer  "backup_retention"
+    t.integer  "sysid_id"
   end
 
   create_table "host_states", force: true do |t|

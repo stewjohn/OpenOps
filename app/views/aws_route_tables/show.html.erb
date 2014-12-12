@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Aws account:</strong>
+  <%= @aws_route_table.aws_account_id %>
+</p>
+
+<p>
+  <strong>Aws region:</strong>
+  <%= @aws_route_table.aws_region_id %>
+</p>
+
+<p>
+  <strong>Route table:</strong>
+  <%= @aws_route_table.route_table_id %>
+</p>
+
+<p>
+  <strong>Vpc:</strong>
+  <%= @aws_route_table.vpc_id %>
+</p>
+
+<%= link_to 'Edit', edit_aws_route_table_path(@aws_route_table) %> |
+<%= link_to 'Back', aws_route_tables_path %>

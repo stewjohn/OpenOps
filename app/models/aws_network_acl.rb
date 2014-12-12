@@ -1,8 +1,8 @@
 class AwsNetworkAcl < ActiveRecord::Base
 belongs_to :aws_account 
 belongs_to :aws_region
-has_many :aws_network_entries, primary_key: 'network_acl_id', foreign_key: 'network_acl_id'
-has_many :aws_network_tags, primary_key: 'network_acl_id', foreign_key: 'network_acl_id'
+has_many :aws_network_acl_entries, primary_key: 'network_acl_id', foreign_key: 'network_acl_id'
+has_many :aws_network_acl_tags, primary_key: 'network_acl_id', foreign_key: 'network_acl_id'
 
 
 	def self.update_acl

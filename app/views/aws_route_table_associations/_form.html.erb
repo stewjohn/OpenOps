@@ -1,0 +1,37 @@
+<%= form_for(@aws_route_table_association) do |f| %>
+  <% if @aws_route_table_association.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@aws_route_table_association.errors.count, "error") %> prohibited this aws_route_table_association from being saved:</h2>
+
+      <ul>
+      <% @aws_route_table_association.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :route_table_id %><br>
+    <%= f.text_field :route_table_id %>
+  </div>
+  <div class="field">
+    <%= f.label :route_table_association_id %><br>
+    <%= f.text_field :route_table_association_id %>
+  </div>
+  <div class="field">
+    <%= f.label :route_table_id %><br>
+    <%= f.text_field :route_table_id %>
+  </div>
+  <div class="field">
+    <%= f.label :subnet_id %><br>
+    <%= f.text_field :subnet_id %>
+  </div>
+  <div class="field">
+    <%= f.label :main %><br>
+    <%= f.check_box :main %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

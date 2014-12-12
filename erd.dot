@@ -1,0 +1,85 @@
+digraph Openops {
+rankdir = "LR";
+ranksep = "0.5";
+nodesep = "0.4";
+pad = "0.4,0.4";
+margin = "0,0";
+concentrate = "true";
+labelloc = "t";
+fontsize = "13";
+fontname = "Arial Bold";
+node[ shape  =  "Mrecord" , fontsize  =  "10" , fontname  =  "Arial" , margin  =  "0.07,0.05" , penwidth  =  "1.0"];
+edge[ fontname  =  "Arial" , fontsize  =  "7" , dir  =  "both" , arrowsize  =  "0.9" , penwidth  =  "1.0" , labelangle  =  "32" , labeldistance  =  "1.8"];
+label = "";
+m_AwsSubnet [fillcolor=khaki style=filled label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">AwsSubnet</font></td></tr>
+</table>
+>];
+m_AwsVpc [fillcolor=khaki style=filled label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">AwsVpc</font></td></tr>
+</table>
+>];
+m_AwsVpcTag [fillcolor=khaki style=filled label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">AwsVpcTag</font></td></tr>
+</table>
+>];
+m_CheckpointFrequency [fillcolor=powderblue style=filled label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">CheckpointFrequency</font></td></tr>
+</table>
+>];
+m_Environment [fillcolor=powderblue style=filled label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Environment</font></td></tr>
+</table>
+>];
+m_Host [fillcolor=powderblue style=filled label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Host</font></td></tr>
+</table>
+>];
+m_Instance [fillcolor=khaki style=filled label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Instance</font></td></tr>
+</table>
+>];
+m_InstanceBlockDeviceMapping [fillcolor=khaki style=filled label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">InstanceBlockDeviceMapping</font></td></tr>
+</table>
+>];
+m_InstanceEni [fillcolor=khaki style=filled label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">InstanceEni</font></td></tr>
+</table>
+>];
+m_InstanceEniMapping [fillcolor=khaki style=filled label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">InstanceEniMapping</font></td></tr>
+</table>
+>];
+m_InstanceEniTag [fillcolor=khaki style=filled label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">InstanceEniTag</font></td></tr>
+</table>
+>];
+m_InstanceTag [fillcolor=khaki style=filled label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">InstanceTag</font></td></tr>
+</table>
+>];
+m_Sysid [fillcolor=powderblue style=filled label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Sysid</font></td></tr>
+</table>
+>];
+  m_AwsVpc -> m_AwsSubnet [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_AwsVpc -> m_AwsVpcTag [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_Environment -> m_AwsVpc [style = "dotted", arrowhead = "normal", arrowtail = "none", weight = "1", constraint = "false"];
+  m_CheckpointFrequency -> m_Environment [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_Environment -> m_Host [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_Environment -> m_Instance [style = "dotted", arrowhead = "normal", arrowtail = "none", weight = "1", constraint = "false"];
+  m_Sysid -> m_Host [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_Host -> m_Instance [arrowhead = "none", arrowtail = "none", weight = "1"];
+  m_Instance -> m_InstanceTag [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_Instance -> m_AwsVpc [arrowhead = "none", arrowtail = "none", weight = "1"];
+  m_Instance -> m_InstanceBlockDeviceMapping [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_InstanceEni -> m_InstanceEniTag [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_AwsSubnet -> m_InstanceEni [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_AwsVpc -> m_InstanceEni [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_InstanceEni -> m_InstanceEniMapping [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_InstanceEniMapping -> m_Instance [arrowhead = "none", arrowtail = "none", weight = "1"];
+  m_InstanceEni -> m_InstanceEniTag [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_Sysid -> m_Host [style = "dotted", arrowhead = "normal", arrowtail = "none", weight = "1", constraint = "false"];
+  m_Sysid -> m_Environment [arrowhead = "normal", arrowtail = "none", weight = "1"];
+}

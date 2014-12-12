@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Route table:</strong>
+  <%= @aws_route_table_association.route_table_id %>
+</p>
+
+<p>
+  <strong>Route table association:</strong>
+  <%= @aws_route_table_association.route_table_association_id %>
+</p>
+
+<p>
+  <strong>Route table:</strong>
+  <%= @aws_route_table_association.route_table_id %>
+</p>
+
+<p>
+  <strong>Subnet:</strong>
+  <%= @aws_route_table_association.subnet_id %>
+</p>
+
+<p>
+  <strong>Main:</strong>
+  <%= @aws_route_table_association.main %>
+</p>
+
+<%= link_to 'Edit', edit_aws_route_table_association_path(@aws_route_table_association) %> |
+<%= link_to 'Back', aws_route_table_associations_path %>

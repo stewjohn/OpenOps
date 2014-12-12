@@ -1,7 +1,8 @@
 class AwsElasticIp < ActiveRecord::Base
 belongs_to :aws_account 
 belongs_to :aws_region 
-
+belongs_to :instance, primary_key: 'instance_id', foreign_key: 'instance_id'
+belongs_to :instance_eni, primary_key: 'network_interface_id', foreign_key: 'network_interface_id'
 
 	def self.update_eip
 		AwsAccount.all.each do |account|

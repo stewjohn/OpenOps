@@ -1,0 +1,1 @@
+json.extract! @aws_route_table_route, :id, :route_table_id, :destination_cidr_block, :gateway_id, :instance_id, :instance_owner_id, :network_interface_id, :vpc_peering_connection_id, :state, :origin, :created_at, :updated_at

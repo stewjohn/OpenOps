@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  aws_account_id: 1
+  aws_region_id: 1
+  route_table_id: MyString
+  vpc_id: MyString
+
+two:
+  aws_account_id: 1
+  aws_region_id: 1
+  route_table_id: MyString
+  vpc_id: MyString

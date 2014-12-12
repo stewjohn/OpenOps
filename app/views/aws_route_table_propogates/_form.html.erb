@@ -1,0 +1,25 @@
+<%= form_for(@aws_route_table_propogate) do |f| %>
+  <% if @aws_route_table_propogate.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@aws_route_table_propogate.errors.count, "error") %> prohibited this aws_route_table_propogate from being saved:</h2>
+
+      <ul>
+      <% @aws_route_table_propogate.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :route_table_id %><br>
+    <%= f.text_field :route_table_id %>
+  </div>
+  <div class="field">
+    <%= f.label :gateway_id %><br>
+    <%= f.text_field :gateway_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

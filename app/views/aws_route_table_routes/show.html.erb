@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Route table:</strong>
+  <%= @aws_route_table_route.route_table_id %>
+</p>
+
+<p>
+  <strong>Destination cidr block:</strong>
+  <%= @aws_route_table_route.destination_cidr_block %>
+</p>
+
+<p>
+  <strong>Gateway:</strong>
+  <%= @aws_route_table_route.gateway_id %>
+</p>
+
+<p>
+  <strong>Instance:</strong>
+  <%= @aws_route_table_route.instance_id %>
+</p>
+
+<p>
+  <strong>Instance owner:</strong>
+  <%= @aws_route_table_route.instance_owner_id %>
+</p>
+
+<p>
+  <strong>Network interface:</strong>
+  <%= @aws_route_table_route.network_interface_id %>
+</p>
+
+<p>
+  <strong>Vpc peering connection:</strong>
+  <%= @aws_route_table_route.vpc_peering_connection_id %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @aws_route_table_route.state %>
+</p>
+
+<p>
+  <strong>Origin:</strong>
+  <%= @aws_route_table_route.origin %>
+</p>
+
+<%= link_to 'Edit', edit_aws_route_table_route_path(@aws_route_table_route) %> |
+<%= link_to 'Back', aws_route_table_routes_path %>

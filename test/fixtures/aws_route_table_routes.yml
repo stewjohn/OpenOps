@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  route_table_id: MyString
+  destination_cidr_block: MyString
+  gateway_id: MyString
+  instance_id: MyString
+  instance_owner_id: MyString
+  network_interface_id: MyString
+  vpc_peering_connection_id: MyString
+  state: MyString
+  origin: MyString
+
+two:
+  route_table_id: MyString
+  destination_cidr_block: MyString
+  gateway_id: MyString
+  instance_id: MyString
+  instance_owner_id: MyString
+  network_interface_id: MyString
+  vpc_peering_connection_id: MyString
+  state: MyString
+  origin: MyString
