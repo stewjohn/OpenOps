@@ -11,6 +11,7 @@ AwsNetworkAcl.update_acl
 AwsDhcpOption.update_options
 AwsSubnet.update_subnets
 AwsKeypair.update_keys
+AwsRouteTable.update_routes
 Instance.update_instances
 InstanceEni.update_eni
 EbsVolume.update_volumes
