@@ -1,0 +1,29 @@
+<h1>Listing aws_security_group_ranges</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Security group</th>
+      <th>Permission set</th>
+      <th>Cidr ip</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @aws_security_group_ranges.each do |aws_security_group_range| %>
+      <tr>
+        <td><%= aws_security_group_range.security_group_id %></td>
+        <td><%= aws_security_group_range.permission_set_id %></td>
+        <td><%= aws_security_group_range.cidr_ip %></td>
+        <td><%= link_to 'Show', aws_security_group_range %></td>
+        <td><%= link_to 'Edit', edit_aws_security_group_range_path(aws_security_group_range) %></td>
+        <td><%= link_to 'Destroy', aws_security_group_range, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Aws security group range', new_aws_security_group_range_path %>

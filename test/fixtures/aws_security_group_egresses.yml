@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  security_group_id: MyString
+  egress_id: MyString
+  ip_protocol: MyString
+  from_port: 1
+  to_port: 1
+
+two:
+  security_group_id: MyString
+  egress_id: MyString
+  ip_protocol: MyString
+  from_port: 1
+  to_port: 1

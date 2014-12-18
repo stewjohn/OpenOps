@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Security group:</strong>
+  <%= @aws_security_group_egress.security_group_id %>
+</p>
+
+<p>
+  <strong>Egress:</strong>
+  <%= @aws_security_group_egress.egress_id %>
+</p>
+
+<p>
+  <strong>Ip protocol:</strong>
+  <%= @aws_security_group_egress.ip_protocol %>
+</p>
+
+<p>
+  <strong>From port:</strong>
+  <%= @aws_security_group_egress.from_port %>
+</p>
+
+<p>
+  <strong>To port:</strong>
+  <%= @aws_security_group_egress.to_port %>
+</p>
+
+<%= link_to 'Edit', edit_aws_security_group_egress_path(@aws_security_group_egress) %> |
+<%= link_to 'Back', aws_security_group_egresses_path %>

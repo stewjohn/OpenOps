@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Security group:</strong>
+  <%= @aws_security_group_tag.security_group_id %>
+</p>
+
+<p>
+  <strong>Key:</strong>
+  <%= @aws_security_group_tag.key %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @aws_security_group_tag.value %>
+</p>
+
+<%= link_to 'Edit', edit_aws_security_group_tag_path(@aws_security_group_tag) %> |
+<%= link_to 'Back', aws_security_group_tags_path %>

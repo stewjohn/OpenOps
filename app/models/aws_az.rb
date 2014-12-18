@@ -1,6 +1,6 @@
 class AwsAz < ActiveRecord::Base
 belongs_to :aws_region 
-
+has_many :aws_subnets, primary_key: 'name', foreign_key: 'availability_zone'
 	def self.update_az
 			AwsAccount.all.each do |account|
 				AwsRegion.all.each do |aws_region|

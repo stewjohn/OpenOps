@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  security_group_id: MyString
+  key: MyString
+  value: MyString
+
+two:
+  security_group_id: MyString
+  key: MyString
+  value: MyString

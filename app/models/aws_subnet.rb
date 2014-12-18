@@ -1,6 +1,6 @@
 class AwsSubnet < ActiveRecord::Base
   belongs_to :aws_vpc, primary_key: 'vpc_id', foreign_key: 'vpc_id'
-
+  belongs_to :aws_az, primary_key: 'availability_zone', foreign_key: 'name'
   validates :subnet_id, :state, :vpc_id, :cidr_block, :available_ip_address_count, :availability_zone, presence: true
 
 

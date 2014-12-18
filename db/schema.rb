@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141211175853) do
+ActiveRecord::Schema.define(version: 20141218174217) do
 
   create_table "aws_account_attributes", force: true do |t|
     t.integer  "aws_account_id"
@@ -182,6 +182,63 @@ ActiveRecord::Schema.define(version: 20141211175853) do
     t.string   "vpc_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "aws_security_group_egresses", force: true do |t|
+    t.string   "security_group_id"
+    t.string   "egress_id"
+    t.string   "ip_protocol"
+    t.integer  "from_port"
+    t.integer  "to_port"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "aws_security_group_ingresses", force: true do |t|
+    t.string   "security_group_id"
+    t.string   "ingress_id"
+    t.string   "ip_protocol"
+    t.integer  "from_port"
+    t.integer  "to_port"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "aws_security_group_pairs", force: true do |t|
+    t.string   "security_group_id"
+    t.string   "permission_set_id"
+    t.string   "user_id"
+    t.string   "group_name"
+    t.string   "group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "aws_security_group_ranges", force: true do |t|
+    t.string   "security_group_id"
+    t.string   "permission_set_id"
+    t.string   "cidr_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "aws_security_group_tags", force: true do |t|
+    t.string   "security_group_id"
+    t.string   "key"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "aws_security_groups", force: true do |t|
+    t.string   "owner_id"
+    t.text     "group_name"
+    t.string   "group_id"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "aws_account_id"
+    t.integer  "aws_region_id"
   end
 
   create_table "aws_subnets", force: true do |t|
@@ -360,6 +417,13 @@ ActiveRecord::Schema.define(version: 20141211175853) do
     t.string   "public_dns_name"
     t.string   "private_ip_address"
     t.string   "private_dns_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "instance_security_group_mappings", force: true do |t|
+    t.string   "instance_id"
+    t.string   "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Security group:</strong>
+  <%= @aws_security_group_range.security_group_id %>
+</p>
+
+<p>
+  <strong>Permission set:</strong>
+  <%= @aws_security_group_range.permission_set_id %>
+</p>
+
+<p>
+  <strong>Cidr ip:</strong>
+  <%= @aws_security_group_range.cidr_ip %>
+</p>
+
+<%= link_to 'Edit', edit_aws_security_group_range_path(@aws_security_group_range) %> |
+<%= link_to 'Back', aws_security_group_ranges_path %>

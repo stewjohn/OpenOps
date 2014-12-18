@@ -1,0 +1,37 @@
+<%= form_for(@aws_security_group_egress) do |f| %>
+  <% if @aws_security_group_egress.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@aws_security_group_egress.errors.count, "error") %> prohibited this aws_security_group_egress from being saved:</h2>
+
+      <ul>
+      <% @aws_security_group_egress.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :security_group_id %><br>
+    <%= f.text_field :security_group_id %>
+  </div>
+  <div class="field">
+    <%= f.label :egress_id %><br>
+    <%= f.text_field :egress_id %>
+  </div>
+  <div class="field">
+    <%= f.label :ip_protocol %><br>
+    <%= f.text_field :ip_protocol %>
+  </div>
+  <div class="field">
+    <%= f.label :from_port %><br>
+    <%= f.number_field :from_port %>
+  </div>
+  <div class="field">
+    <%= f.label :to_port %><br>
+    <%= f.number_field :to_port %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

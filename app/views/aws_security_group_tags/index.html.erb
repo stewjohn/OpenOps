@@ -1,0 +1,29 @@
+<h1>Listing aws_security_group_tags</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Security group</th>
+      <th>Key</th>
+      <th>Value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @aws_security_group_tags.each do |aws_security_group_tag| %>
+      <tr>
+        <td><%= aws_security_group_tag.security_group_id %></td>
+        <td><%= aws_security_group_tag.key %></td>
+        <td><%= aws_security_group_tag.value %></td>
+        <td><%= link_to 'Show', aws_security_group_tag %></td>
+        <td><%= link_to 'Edit', edit_aws_security_group_tag_path(aws_security_group_tag) %></td>
+        <td><%= link_to 'Destroy', aws_security_group_tag, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Aws security group tag', new_aws_security_group_tag_path %>

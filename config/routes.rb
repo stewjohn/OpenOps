@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+  resources :instance_security_group_mappings
+
+  resources :aws_security_group_tags
+
+  resources :aws_security_group_ranges
+
+  resources :aws_security_group_pairs
+
+  resources :aws_security_group_egresses
+
+  resources :aws_security_group_ingresses
+
+  resources :aws_security_groups
+
   resources :aws_route_table_propogates
 
   resources :aws_route_table_associations

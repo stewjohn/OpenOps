@@ -5,6 +5,11 @@ class Instance < ActiveRecord::Base
   has_one :aws_region, through: :aws_vpc
   has_many :instance_block_device_mappings, primary_key: 'instance_id', foreign_key: 'instance_id'
   has_one :aws_key_pair, primary_key: "key_name", foreign_key: 'key_name'
+  has_many :instance_security_group_mappings, primary_key: 'instance_id', foreign_key: 'instance_id'
+  
+  
+  
+  
   validates :instance_id, :state, :instance_type, :launch_time,
             :architecture, :root_device_type, :root_device_name,
             :virtualization_type, :client_token, :hypervisor, presence: true
@@ -101,6 +106,18 @@ class Instance < ActiveRecord::Base
           end
           InstanceEniMapping.where(instance_id: instances.instance_id).where.not(network_interface_id: eni_array).delete_all
 
+		  #
+          # Update SG MAPS
+          sg_array = Array.new
+          instances.security_groups.each do |sg|
+            sg_map = InstanceSecurityGroupMapping.where(instance_id: instances.instance_id, group_id: sg.group_id).first_or_initialize
+            sg_map.save
+            sg_array.push sg.group_id
+			
+          end
+          InstanceSecurityGroupMapping.where(instance_id: instances.instance_id).where.not(group_id: sg_array).delete_all
+
+		  
         end
       end
     end

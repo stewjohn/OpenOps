@@ -1,0 +1,33 @@
+<h1>Listing aws_security_group_ingresses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Security group</th>
+      <th>Ingress</th>
+      <th>Ip protocol</th>
+      <th>From port</th>
+      <th>To port</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @aws_security_group_ingresses.each do |aws_security_group_ingress| %>
+      <tr>
+        <td><%= aws_security_group_ingress.security_group_id %></td>
+        <td><%= aws_security_group_ingress.ingress_id %></td>
+        <td><%= aws_security_group_ingress.ip_protocol %></td>
+        <td><%= aws_security_group_ingress.from_port %></td>
+        <td><%= aws_security_group_ingress.to_port %></td>
+        <td><%= link_to 'Show', aws_security_group_ingress %></td>
+        <td><%= link_to 'Edit', edit_aws_security_group_ingress_path(aws_security_group_ingress) %></td>
+        <td><%= link_to 'Destroy', aws_security_group_ingress, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Aws security group ingress', new_aws_security_group_ingress_path %>

@@ -10,11 +10,11 @@ AwsInternetGateway.update_gw
 AwsNetworkAcl.update_acl
 AwsDhcpOption.update_options
 AwsSubnet.update_subnets
-AwsKeypair.update_keys
+AwsKeyPair.update_keys
 AwsRouteTable.update_routes
+AwsSecurityGroup.update_groups
 Instance.update_instances
 InstanceEni.update_eni
 EbsVolume.update_volumes
 EbsSnapshot.update_snapshots
-
 puts "sync finished"

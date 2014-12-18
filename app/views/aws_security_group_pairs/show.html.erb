@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Security group:</strong>
+  <%= @aws_security_group_pair.security_group_id %>
+</p>
+
+<p>
+  <strong>Permission set:</strong>
+  <%= @aws_security_group_pair.permission_set_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @aws_security_group_pair.user_id %>
+</p>
+
+<p>
+  <strong>Group name:</strong>
+  <%= @aws_security_group_pair.group_name %>
+</p>
+
+<p>
+  <strong>Group:</strong>
+  <%= @aws_security_group_pair.group_id %>
+</p>
+
+<%= link_to 'Edit', edit_aws_security_group_pair_path(@aws_security_group_pair) %> |
+<%= link_to 'Back', aws_security_group_pairs_path %>
