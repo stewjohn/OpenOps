@@ -23,21 +23,18 @@
 
       <div class="col-sm-3">
         <select id="a" name="environment[aws_account_id]" class="select2" data-allow-clear="true" data-placeholder="Select Account...">
-
-
+		
         </select>
       </div>
        </div>
 
     <% if params[:action] == 'edit' %>
+	
         <div class="form-group">
           <%= f.label "Primary VPC", :class => "col-sm-3 control-label" %>
           <div class="col-sm-3">
             <select id="b" name="environment[primary_vpc_id]" class="select2" data-allow-clear="true" data-placeholder="Select Primary VPC...">
-              <option></option>
-              <optgroup label="Accounts">
-
-              </optgroup>
+              
             </select>
 
           </div>
@@ -46,7 +43,9 @@
           <%= f.label "DR VPC", :class => "col-sm-3 control-label" %>
           <div class="col-sm-3">
             <select id="c" name="environment[dr_vpc_id]" class="select2" data-allow-clear="true" data-placeholder="Select DR VPC...">
-            </select>
+           
+			
+			</select>
 
           </div>
         </div>
@@ -70,23 +69,23 @@
             $("[name='environment[dr_enabled]']").bootstrapSwitch();
         </script>
 
-	<div class="form-group">
-    	<%= f.label :back_retention, "Back Up Retention", :class => "col-sm-3 control-label" %>
-    	<div class="col-sm-6">
-        <%= f.number_field :backup_retention %>
-    	</div>
-  	</div>
+		<div class="form-group">
+			<%= f.label :back_retention, "Back Up Retention", :class => "col-sm-3 control-label" %>
+			<div class="col-sm-6">
+			<%= f.number_field :backup_retention %>
+			</div>
+		</div>
 
-	 <div class="form-group">
-         <%= f.label :checkpoint_frequency_id,"CheckPoint Frequency", :class => "col-sm-3 control-label" %>
-         <div class="col-sm-3">
-         <select name="environment[checkpoint_frequency_id]" class="select2" data-allow-clear="true" data-placeholder="Select CheckPoint...">
-                  <% @check.each do |check| %>
-                <option value="<%= check.id %>" <%= if check.id==@environment.checkpoint_frequency_id then "selected" end %>><%= check.name %></option>
-            <% end %>
-        </select>
-	</div>
-	</div>
+		 <div class="form-group">
+			 <%= f.label :checkpoint_frequency_id,"CheckPoint Frequency", :class => "col-sm-3 control-label" %>
+			 <div class="col-sm-3">
+			 <select name="environment[checkpoint_frequency_id]" class="select2" data-allow-clear="true" data-placeholder="Select CheckPoint...">
+					  <% @check.each do |check| %>
+					<option value="<%= check.id %>" <%= if check.id==@environment.checkpoint_frequency_id then "selected" end %>><%= check.name %></option>
+				<% end %>
+			</select>
+		</div>
+		</div>
 
 
 

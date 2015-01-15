@@ -1,1 +1,0 @@
- aws_account_id: integer, aws_region_id: integer, instance_id: string, public_ip: string, allocation_id: string, association_id: string, domain: string, network_interface_id: string, network_interface_owner_id: string, private_ip_address: string, created_at: datetime,

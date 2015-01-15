@@ -1,5 +1,5 @@
 class HostsController < ApplicationController
-  before_action :set_host, only: [:show, :edit, :update, :destroy]
+  before_action :set_host, only: [:show, :edit, :update, :destroy, :snapshot, :reboot]
   add_breadcrumb 'Hosts', '/hosts'
   # GET /hosts
   # GET /hosts.json
@@ -15,7 +15,7 @@ class HostsController < ApplicationController
     @instance_block_device_mappings = InstanceBlockDeviceMapping.join_all.where(instance_id: @host.instance_id)
     @ebs_snapshots =  EbsSnapshot.latest_snaps(@host.instance_id).order(created_at: :desc).limit(5)
 	vols = Instance.volumes(@host.instance_id)
-	
+	@instance_tags = InstanceTag.where(instance_id: @host.instance_id)
 	@dr_snapshots = EbsSnapshot.where(replicant_of: vols).order(created_at: :desc).limit(5)
 	
   end
@@ -25,7 +25,7 @@ class HostsController < ApplicationController
     @host = Host.new
     @environments = Environment.all
     @sysids = Sysid.all
-    @instances = Instance.where(host_id: nil)
+    @instances = Instance.where(host_id: nil, state: "running")
 
   end
 
@@ -89,7 +89,19 @@ class HostsController < ApplicationController
       format.json { head :no_content }
     end
   end
+#####
 
+  def snapshot
+	EbsVolume.create_snaps(@host.id)
+	redirect_to :back
+  end
+  
+  def reboot
+	Instance.reboot(@host.instance_id)
+	redirect_to :back
+  end
+  
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_host

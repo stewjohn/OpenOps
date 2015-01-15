@@ -9,7 +9,12 @@ gem 'pg'
 gem 'railroady'
 gem 'rails-erd'
 gem 'chartkick'
-
+gem 'delayed_job_active_record'
+gem 'net-ssh'
+gem 'daemons'
+# chef APIS 
+gem 'ridley'
+gem 'chef-api'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets

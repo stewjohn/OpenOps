@@ -32,7 +32,26 @@ class Host < ActiveRecord::Base
     end    
 
   end 
-
-
-
+  
+  
+  def self.replace_host(host_id)
+	host = Host.include_all.find(host_id)
+	region = host.instance.availability_zone.chop
+	aws_account = AwsAccount.find_by_account_number(host.environment.aws_account_id)
+	ec2 = setup_ec2(aws_account.id, region)
+	instance_status = ec2.describe_instance_status(instance_ids: [host.instance.instance_id]).instance_statuses.first.instance_state.name
+	#
+	# Attempt Stop of instance if runnning
+	if instance_status == "running"
+		sleep 1 until ["stopped"].include?(ec2.stop_instances(instance_ids: [host.instance.instance_id]).stopping_instances.first.currrent_state.name)
+	end
+	instance_volumes = Instance.volumes(host.instance.instance_id)
+	instance_volumes.each do |vol|
+		 ec2.detach_volume(instance_id: host.instance.instance_id, volume_id: vol, force: true)
+	end
+	
+  end
+  
+  
+  
 end

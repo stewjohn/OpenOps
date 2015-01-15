@@ -4,6 +4,7 @@ class Environment < ActiveRecord::Base
   belongs_to :checkpoint_frequency
   has_many :hosts 
   has_many :instances, through: :hosts
+  
   def self.with_vpcs
     self.includes(:aws_vpcs)
   end

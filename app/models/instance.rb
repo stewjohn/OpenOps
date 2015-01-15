@@ -25,6 +25,14 @@ class Instance < ActiveRecord::Base
       return vols 
   end
 
+  
+  def self.reboot(instance_id)
+	  instance = Instance.joins(:aws_account,:aws_region).find_by_instance_id(instance_id)
+	  ec2 = setup_ec2(instance.aws_account.id, instance.aws_region.name)
+	  ec2.reboot_instances(instance_ids: ["#{instance_id}"])
+  end
+  
+  
 
   def self.add_update_tag(instance, key, value) 
     	instance = Instance.joins(:aws_account,:aws_region).find_by_instance_id(instance)

@@ -21,6 +21,30 @@
   <%= @host.chef_environment_id %>
 </p>
 
+<h2><small>All Tags</small></h2>
+
+<table class="table table-bordered datatable">
+  <thead>
+    <tr>
+      
+      <th>Name</th>
+      <th>Value</th>
+     
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @instance_tags.each do |instance_tag| %>
+      <tr>
+      
+        <td><%= instance_tag.name %></td>
+        <td><%= instance_tag.value %></td>
+       
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
   <%= render 'application/page_end' %>
   <%= render :partial =>  'application/page_begin', :locals => {:title => 'Instance Info'} %>
   <p>
@@ -176,8 +200,8 @@
 </div>
 <div class="col-sm-3">
   <%= render :partial =>  'application/page_begin', :locals => {:title => 'Operator Actions'} %>
-  <p><%= button_to 'Reboot Instance', @host, :class =>  'btn btn-blue  btn-block disabled' %></p>
-  <p><%= button_to 'Create SnapShot', @host,:class =>  'btn btn-blue btn-block disabled' %></p>
+  <p><%= link_to 'Reboot Instance', reboot_path(@host), :class =>  'btn btn-blue  btn-block'  %></p>
+  <p><%= link_to 'Create SnapShot', snapshot_path(@host),:class =>  'btn btn-blue btn-block' %></p>
   <p><%= button_to 'Replace Instance',@host, :class =>  'btn btn-orange btn-block disabled' %></p>
   <p><%= button_to 'Replace Volumes', @host,:class =>  'btn btn-orange btn-block disabled' %></p>
   <p><%= button_to 'Recover Instance',@host, :class =>  'btn btn-danger btn-block disabled' %></p>
