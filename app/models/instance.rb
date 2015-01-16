@@ -25,12 +25,40 @@ class Instance < ActiveRecord::Base
       return vols 
   end
 
+  def self.create_instance(account_id,az,size,key,security_group,subnet_id, priv_ip)
+	region = az.chop
+	puts region
+	ec2 = setup_ec2(account_id,region)
+	resp = ec2.run_instances(
+	  # required
+	  image_id: "ami-bc8d18d4",
+	  # required
+	  min_count: 1,
+	  # required
+	  max_count: 1,
+	  key_name: key,
+	  security_group_ids: ["#{security_group}"],
+	  instance_type: size,
+	  monitoring: {
+		# required
+		enabled: true,
+	  },
+	  subnet_id: subnet_id,
+	  disable_api_termination: false,
+	  instance_initiated_shutdown_behavior: "stop",
+	  private_ip_address: priv_ip
+	)
+  end
+  
+  
   
   def self.reboot(instance_id)
 	  instance = Instance.joins(:aws_account,:aws_region).find_by_instance_id(instance_id)
 	  ec2 = setup_ec2(instance.aws_account.id, instance.aws_region.name)
 	  ec2.reboot_instances(instance_ids: ["#{instance_id}"])
   end
+  
+  
   
   
 
