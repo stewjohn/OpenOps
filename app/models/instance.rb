@@ -63,7 +63,7 @@ class Instance < ActiveRecord::Base
   
 
   def self.add_update_tag(instance, key, value) 
-    	instance = Instance.joins(:aws_account,:aws_region).find_by_instance_id(instance)
+    instance = Instance.joins(:aws_account,:aws_region).find_by_instance_id(instance)
 	creds = Aws::Credentials.new(instance.aws_account.access_key_id, instance.aws_account.secrete_access_key)
 	ec2 = Aws::EC2::Client.new(region: instance.aws_region.name, credentials: creds, http_proxy: PROXY)
 	ec2.create_tags(resources: ["#{instance.instance_id}"], tags: [{key: "#{key}", value: "#{value}"}])

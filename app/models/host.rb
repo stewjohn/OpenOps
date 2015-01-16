@@ -2,7 +2,7 @@ class Host < ActiveRecord::Base
   belongs_to :environment
   belongs_to :sysid
   has_one :instance, primary_key: 'instance_id', foreign_key: 'instance_id'
-  has_one :aws_account, through: :environment, primary_key: 'account_number'
+ # has_one :aws_account, through: :environment, primary_key: 'account_number'
 
   def self.include_all
     self.includes(:environment,:sysid,:instance)
@@ -36,27 +36,17 @@ class Host < ActiveRecord::Base
   
   def self.replace_host(host_id)
 	host = Host.include_all.find(host_id)
-	region = host.instance.availability_zone.chop
-	aws_account = AwsAccount.find_by_account_number(host.environment.aws_account_id)
-	ec2 = setup_ec2(aws_account.id, region)
-	instance_status = ec2.describe_instance_status(instance_ids: [host.instance.instance_id]).instance_statuses.first.instance_state.name
-	#
-	# Attempt Stop of instance if runnning
-	if instance_status == "running"
-		sleep 1 until ["stopped"].include?(ec2.stop_instances(instance_ids: [host.instance.instance_id]).stopping_instances.first.currrent_state.name)
-	end
-	instance_volumes = Instance.volumes(host.instance.instance_id)
-	instance_volumes.each do |vol|
-		 ec2.detach_volume(instance_id: host.instance.instance_id, volume_id: vol, force: true)
-	enddef self.replace_host(host_id)
-	host = Host.include_all.find(host_id)
 	instance = host.instance
 	region = host.instance.availability_zone.chop
 	aws_account = AwsAccount.find_by_account_number(host.environment.aws_account_id)
 	ec2 = setup_ec2(aws_account.id, region)
-	instance_status = ec2.describe_instance_status(instance_ids: [host.instance.instance_id]).instance_statuses.first.instance_state.name
+	begin 
+		instance_status = ec2.describe_instance_status(instance_ids: [host.instance.instance_id]).instance_statuses.first.instance_state.name
+	rescue 
+		puts "instance is not running, or terminated"
+	end
 	eni = InstanceEniMapping.where(instance_id: host.instance.instance_id)
-	eni_attachment_id = InstanceEni.find_by_network_interface_id(eni.first.network_interface_id).attachtment_id
+	eni_attachment_id = InstanceEni.find_by_network_interface_id(eni.first.network_interface_id).attachment_id
 	security_group = InstanceSecurityGroupMapping.where(instance_id: instance.instance_id).first.group_id
 
 	
@@ -73,18 +63,31 @@ class Host < ActiveRecord::Base
 	end
 	
 	instance_volumes.each do |mount,vol|
-		 ec2.detach_volume(instance_id: host.instance.instance_id, volume_id: vol, force: true
+		 ec2.detach_volume(instance_id: host.instance.instance_id, volume_id: vol, force: true)
 	end
-	sleep 1 untill ["terminated"].include?(ec2.terminate_instances(instance_ids: [host.instance.instance_id]).terminating_instances.first.current_state.name)
-	
-	resp = Instance.create_instance(host.aws_account.id, instance.availability_zone,instance.instance_type,instance.key_name,sg,instance.subnet_id,instance.private_ip_address)
-	host.instance_id = resp.instances.first.instance_id
-	host.save
-	
+	sleep 1 until ["terminated"].include?(ec2.terminate_instances(instance_ids: [host.instance.instance_id]).terminating_instances.first.current_state.name)
+	sleep 5
+	begin 
+		ec2.delete_network_interface(network_interface_id: eni.first.network_interface_id)
+	rescue 
+		puts "ENI already Deleted"
+	end
+	sleep 5
+	resp = Instance.create_instance(aws_account.id, instance.availability_zone,instance.instance_type,instance.key_name,security_group,instance.subnet_id,instance.private_ip_address)
+	h = Host.find(host.id)
+	h.instance_id = resp.instances.first.instance_id
+	h.save
 	instance.instance_id = resp.instances.first.instance_id
 	instance.save
-	
-	sleep 1 until ["running"].include?(ec2.describe_instance_status(instance_ids: [host.instance.instance_id]).instance_statuses.first.instance_state.name)
+	host.reload
+	puts "waiting 30secs"
+	sleep 30
+	puts "wait for run"
+	begin
+		sleep 1 until ["running"].include?(ec2.describe_instance_status(instance_ids: [instance.instance_id]).instance_statuses.first.instance_state.name)
+	rescue 
+		puts "data is lagging, assuming running and continuing" 
+	end 
 	sleep 1 until ["stopped"].include?(ec2.stop_instances(instance_ids: [host.instance.instance_id]).stopping_instances.first.current_state.name)
 	base_vol =  ec2.describe_instances(instance_ids: [host.instance.instance_id]).reservations.first.instances.first.block_device_mappings.first.ebs.volume_id
 	ec2.detach_volume(instance_id: host.instance.instance_id, volume_id: base_vol, force: true)
@@ -101,9 +104,6 @@ class Host < ActiveRecord::Base
     Instance.update_volume_tags(host.instance_id,"SYSID",host.sysid.name)
 	Instance.update_volume_tags(host.instance_id,"host_id",host.id)
 	ec2.start_instances(instance_ids: [instance.instance_id])
-	 
-	 
-  end
 	
   end
   
