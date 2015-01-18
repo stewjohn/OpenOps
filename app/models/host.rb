@@ -2,7 +2,7 @@ class Host < ActiveRecord::Base
   belongs_to :environment
   belongs_to :sysid
   has_one :instance, primary_key: 'instance_id', foreign_key: 'instance_id'
- # has_one :aws_account, through: :environment, primary_key: 'account_number'
+  has_one :aws_account, through: :environment, primary_key: 'account_number'
 
   def self.include_all
     self.includes(:environment,:sysid,:instance)
