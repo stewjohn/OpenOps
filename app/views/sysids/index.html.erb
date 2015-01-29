@@ -1,12 +1,12 @@
 <h1>Listing sysids</h1>
 
-<table>
+<table  class="table table-condensed table-bordered table-hover table-striped">
   <thead>
     <tr>
       <th>Name</th>
       <th>Owner</th>
       <th>Email notification</th>
-      <th colspan="3"></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -18,7 +18,6 @@
         <td><%= sysid.email_notification %></td>
         <td><%= link_to 'Show', sysid %></td>
         <td><%= link_to 'Edit', edit_sysid_path(sysid) %></td>
-        <td><%= link_to 'Destroy', sysid, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

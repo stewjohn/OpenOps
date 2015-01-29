@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   get "/hosts/:id/snapshot", to: 'hosts#snapshot', as: 'snapshot'
+  get '/hosts/:id/replace_instance', to: 'hosts#replace_instance', as: 'replace'
   get '/hosts/:id/reboot', to: 'hosts#reboot', as: 'reboot'
 
   resources :instance_security_group_mappings
@@ -46,7 +47,7 @@ Rails.application.routes.draw do
   resources :aws_regions
   resources :environments
 
- # resources :aws_accounts
+  resources :aws_accounts
 
   resources :indices
 

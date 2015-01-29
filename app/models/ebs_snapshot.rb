@@ -62,8 +62,7 @@ class EbsSnapshot < ActiveRecord::Base
   def self.update_snapshots
     AwsAccount.all.each do |account|
       AwsRegion.all.each do |aws_region |
-        creds = Aws::Credentials.new(account.access_key_id, account.secrete_access_key)
-        ec2 = Aws::EC2::Client.new(region: aws_region.name, credentials: creds, http_proxy: PROXY)
+        ec2 = setup_ec2(account.id, aws_region.name)
         ec2.describe_snapshots(:owner_ids => ["#{account.account_number}"]).snapshots.each do | snapshot |
           saved_snapshot = EbsSnapshot.where(snapshot_id: snapshot.snapshot_id).first_or_initialize
           saved_snapshot.aws_account_id = account.account_number

@@ -198,17 +198,35 @@
   <%= render 'application/page_end' %>
 
 </div>
+
 <div class="col-sm-3">
   <%= render :partial =>  'application/page_begin', :locals => {:title => 'Operator Actions'} %>
   <p><%= link_to 'Reboot Instance', reboot_path(@host), :class =>  'btn btn-blue  btn-block'  %></p>
   <p><%= link_to 'Create SnapShot', snapshot_path(@host),:class =>  'btn btn-blue btn-block' %></p>
-  <p><%= button_to 'Replace Instance',@host, :class =>  'btn btn-orange btn-block disabled' %></p>
+  <p><%= link_to 'Replace Instance',replace_path(@host), :class =>  'btn btn-orange btn-block' %></p>
   <p><%= button_to 'Replace Volumes', @host,:class =>  'btn btn-orange btn-block disabled' %></p>
-  <p><%= button_to 'Recover Instance',@host, :class =>  'btn btn-danger btn-block disabled' %></p>
-
-
+  <p><%= button_to 'DR Recover Instance',@host, :class =>  'btn btn-danger btn-block' %></p>
   <%= render 'application/page_end' %>
 </div>
+  <% if @dr_instance %>
+  <div class="col-sm-3">
+    <%= render :partial =>  'application/page_begin', :locals => {:title => 'DR Instance'} %>
+    <p>
+      <strong>Instance:</strong>
+      <%= @dr_instance.instance_id %>
+    </p>
+    <p>
+      <strong>State:</strong>
+      <%= @dr_instance.state %>
+    </p>
+    <p>
+      <strong>Restored At:</strong>
+      <%= @dr_instance.launch_time %>
+    </p>
+    <p><%= button_to 'Terminate DR',@host, :class =>  'btn btn-danger btn-block' %></p>
+    <%= render 'application/page_end' %>
+    </div>
+      <% end %>
 </div>
 <%= link_to 'Edit', edit_host_path(@host) %> |
 <%= link_to 'Back', hosts_path %>

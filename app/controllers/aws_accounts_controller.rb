@@ -70,6 +70,6 @@ class AwsAccountsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def aws_account_params
-      params.require(:aws_account).permit(:account_name, :environment_id, :access_key_id, :secrete_access_key)
+      params.require(:aws_account).permit(:account_name, :environment_id, :access_key_id, :account_number, :secrete_access_key)
     end
 end

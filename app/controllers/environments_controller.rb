@@ -22,7 +22,7 @@ class EnvironmentsController < ApplicationController
   def edit
     add_breadcrumb 'Edit Environment'
     @accounts = AwsAccount.with_vpc
-    @vpcs = AwsVpc.with_account
+    @vpcs = AwsVpc.include_all.all
     @check = CheckpointFrequency.all
 
   end
@@ -75,7 +75,7 @@ class EnvironmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def environment_params
-      params.require(:environment).permit(:name, :aws_account_id, :primary_vpc_id, :dr_vpc_id, :dr_enabled, :checkpoint_frequency_id, :dr_lead_time, :backup_retention)
+      params.require(:environment).permit(:name, :aws_account_id, :primary_vpc_id, :dr_vpc_id, :dr_enabled, :checkpoint_frequency_id, :dr_lead_time, :backup_retention, :dr_security_group_id)
 
     end
 end

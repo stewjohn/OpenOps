@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141219131654) do
+ActiveRecord::Schema.define(version: 20150129030544) do
 
   create_table "aws_account_attributes", force: true do |t|
     t.integer  "aws_account_id"
@@ -239,6 +239,7 @@ ActiveRecord::Schema.define(version: 20141219131654) do
     t.datetime "updated_at"
     t.integer  "aws_account_id"
     t.integer  "aws_region_id"
+    t.string   "vpc_id"
   end
 
   create_table "aws_subnets", force: true do |t|
@@ -273,13 +274,6 @@ ActiveRecord::Schema.define(version: 20141219131654) do
     t.datetime "updated_at"
     t.string   "aws_account_id"
     t.integer  "aws_region_id"
-  end
-
-  create_table "checkpoint_fequencies", force: true do |t|
-    t.string   "name"
-    t.integer  "hours_apart"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "checkpoint_frequencies", force: true do |t|
@@ -367,6 +361,7 @@ ActiveRecord::Schema.define(version: 20141219131654) do
     t.integer  "dr_lead_time"
     t.integer  "backup_retention"
     t.integer  "sysid_id"
+    t.string   "dr_security_group_id"
   end
 
   create_table "host_states", force: true do |t|
@@ -387,6 +382,7 @@ ActiveRecord::Schema.define(version: 20141219131654) do
     t.integer  "sysid_id"
     t.string   "instance_id"
     t.datetime "last_checkpoint"
+    t.string   "dr_instance_id"
   end
 
   create_table "indices", force: true do |t|
@@ -479,6 +475,7 @@ ActiveRecord::Schema.define(version: 20141219131654) do
     t.boolean  "source_dest_check"
     t.string   "hypervisor"
     t.boolean  "ebs_optimized"
+    t.string   "image_id"
   end
 
   create_table "sysids", force: true do |t|

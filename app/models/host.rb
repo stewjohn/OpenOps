@@ -22,89 +22,131 @@ class Host < ActiveRecord::Base
                         source_snapshot_id: snap,
                         description: "This is a replicated DR Snapshot of #{host.hostname}", 
                         destination_region: dr_vpc.aws_region.name)
-    
-      EbsSnapshot.create(snapshot_id: rep.snapshot_id, replicant_of: snapshot.volume_id, replicated: true) 
-      EbsSnapshot.where(snapshot_id: snap).update_all(replicated: true) 
+		unless rep.snapshot_id.nil?
+				EbsSnapshot.create(snapshot_id: rep.snapshot_id, replicant_of: snapshot.volume_id, replicated: true)
+				EbsSnapshot.where(snapshot_id: snap).update_all(replicated: true)
 
-      ec2.create_tags(resources: ["#{rep.snapshot_id}"], tags: [{key: "Name", value: "#{host.hostname}"}])
-      ec2.create_tags(resources: ["#{rep.snapshot_id}"], tags: [{key: "SYSID", value: "#{host.sysid.name}"}])
-      ec2.create_tags(resources: ["#{rep.snapshot_id}"], tags: [{key: "host_id", value: "#{host.id}"}])
-    end    
-
+				ec2.create_tags(resources: ["#{rep.snapshot_id}"], tags: [{key: "Name", value: "#{host.hostname}"}])
+				ec2.create_tags(resources: ["#{rep.snapshot_id}"], tags: [{key: "SYSID", value: "#{host.sysid.name}"}])
+				ec2.create_tags(resources: ["#{rep.snapshot_id}"], tags: [{key: "host_id", value: "#{host.id}"}])
+			end
+		end
   end 
-  
-  
-  def self.replace_host(host_id)
-	host = Host.include_all.find(host_id)
-	instance = host.instance
-	region = host.instance.availability_zone.chop
-	aws_account = AwsAccount.find_by_account_number(host.environment.aws_account_id)
-	ec2 = setup_ec2(aws_account.id, region)
-	begin 
-		instance_status = ec2.describe_instance_status(instance_ids: [host.instance.instance_id]).instance_statuses.first.instance_state.name
-	rescue 
-		puts "instance is not running, or terminated"
-	end
-	eni = InstanceEniMapping.where(instance_id: host.instance.instance_id)
-	eni_attachment_id = InstanceEni.find_by_network_interface_id(eni.first.network_interface_id).attachment_id
-	security_group = InstanceSecurityGroupMapping.where(instance_id: instance.instance_id).first.group_id
 
-	
-	# build mapping of drives 
-	###
-	instance_volumes = Hash.new
-	InstanceBlockDeviceMapping.where(instance_id: host.instance.instance_id).each do |map| 
-		instance_volumes["#{map.device_name}"] = map.volume_id
+
+
+	def self.recover_to_dr(host_id)
+		host = Host.include_all.find(host_id)
+		instance = host.instance
+		region = host.instance.availability_zone.chop
+		dr_region = AwsVpc.with_region.find_by_vpc_id(host.environment.dr_vpc_id).aws_region.name
+		aws_account = AwsAccount.find_by_account_number(host.environment.aws_account_id)
+		ec2 = setup_ec2(aws_account.id, region)
+		dr_ec2 = setup_ec2(aws_account.id, dr_region)
+		begin
+			instance_status = dr_ec2.describe_instance_status(instance_ids: [host.dr_instance_id]).instance_statuses.first.instance_state.name
+		rescue
+			Rails.logger.debug "Instance is not running, terminated, or instance metadata expired"
+			instance_status = "Terminated"
+		end
+
+		if !instance_status=="Terminated"
+			dr_ec2.terminate_instances(instance_ids: [host.dr_instance_id])
+			dr_ec2.wait_until(:instance_terminated, instance_ids: [host.dr_instance_id])
+		end
+
+		if host.instance.virtualization_type == "hvm"
+		  image_id = "ami-b5a7ea85"
+		else
+			image_id = "ami-55a7ea65"
+		end
+
+		cidr = NetAddr::CIDR.create(AwsSubnet.find_by_subnet_id(host.instance.subnet_id).cidr_block)
+		subnet = AwsSubnet.where(cidr_block: "#{cidr.base + cidr.netmask}").where.not(subnet_id: host.instance.subnet_id)
+		security_group = host.environment.dr_security_group_id
+		instance_volumes = Instance.restore_map(instance.instance_id)
+		resp = Instance.create_instance(aws_account.id, subnet.first.availability_zone,instance.instance_type,instance.key_name,security_group,subnet.first.subnet_id,instance.private_ip_address,image_id)
+		sleep 10
+		host.dr_instance_id =  resp.instances.first.instance_id
+		host.save
+		dr_ec2.wait_until(:instance_running, instance_ids: [host.dr_instance_id])
+		dr_ec2.stop_instances(instance_ids: [host.dr_instance_id])
+		dr_ec2.wait_until(:instance_stopped, instance_ids: [host.dr_instance_id])
+		base_vol =  dr_ec2.describe_instances(instance_ids: [host.dr_instance_id]).reservations.first.instances.first.block_device_mappings.first.ebs.volume_id
+		dr_ec2.detach_volume(instance_id: host.dr_instance_id, volume_id: base_vol, force: true)
+		dr_ec2.wait_until(:volume_available, volume_ids: [base_vol])
+		dr_ec2.delete_volume(volume_id: base_vol)
+		instance_volumes.each do |mount,snapshot|
+			snap = EbsSnapshot.find_by_snapshot_id(snapshot)
+			orig_vol = EbsVolume.find_by_volume_id(snap.replicant_of)
+			dr_vol = dr_ec2.create_volume(size: orig_vol.size, snapshot_id: snapshot, availability_zone: subnet.first.availability_zone, volume_type: orig_vol.volume_type)
+			dr_ec2.wait_until(:volume_available, volume_ids: [dr_vol.volume_id])
+			dr_ec2.attach_volume(instance_id: host.dr_instance_id, volume_id: dr_vol.volume_id, device: mount)
+			dr_ec2.wait_until(:volume_in_use, volume_ids: [dr_vol.volume_id])
+		end
+		dr_ec2.start_instances(instance_ids: [host.dr_instance_id])
+		sleep 30
+		Instance.update_instances
+		Instance.tag_resources(host.dr_instance_id)
 	end
-	#
-	# Attempt Stop of instance if runnning
-	if instance_status == "running"
-		sleep 1 until ["stopped"].include?(ec2.stop_instances(instance_ids: [host.instance.instance_id]).stopping_instances.first.current_state.name)
-	end
-	
-	instance_volumes.each do |mount,vol|
-		 ec2.detach_volume(instance_id: host.instance.instance_id, volume_id: vol, force: true)
-	end
-	sleep 1 until ["terminated"].include?(ec2.terminate_instances(instance_ids: [host.instance.instance_id]).terminating_instances.first.current_state.name)
-	sleep 5
-	begin 
-		ec2.delete_network_interface(network_interface_id: eni.first.network_interface_id)
-	rescue 
-		puts "ENI already Deleted"
-	end
-	sleep 5
-	resp = Instance.create_instance(aws_account.id, instance.availability_zone,instance.instance_type,instance.key_name,security_group,instance.subnet_id,instance.private_ip_address)
-	h = Host.find(host.id)
-	h.instance_id = resp.instances.first.instance_id
-	h.save
-	instance.instance_id = resp.instances.first.instance_id
-	instance.save
-	host.reload
-	puts "waiting 30secs"
-	sleep 30
-	puts "wait for run"
-	begin
-		sleep 1 until ["running"].include?(ec2.describe_instance_status(instance_ids: [instance.instance_id]).instance_statuses.first.instance_state.name)
-	rescue 
-		puts "data is lagging, assuming running and continuing" 
-	end 
-	sleep 1 until ["stopped"].include?(ec2.stop_instances(instance_ids: [host.instance.instance_id]).stopping_instances.first.current_state.name)
-	base_vol =  ec2.describe_instances(instance_ids: [host.instance.instance_id]).reservations.first.instances.first.block_device_mappings.first.ebs.volume_id
-	ec2.detach_volume(instance_id: host.instance.instance_id, volume_id: base_vol, force: true)
-	sleep 5 
-	ec2.delete_volume(volume_id: base_vol)
-	
-	instance_volumes.each do |mount,vol|
-		 ec2.attach_volume(instance_id: host.instance.instance_id, volume_id: vol, device: mount)
-	end
-	Instance.add_update_tag(host.instance_id,"Name",host.hostname)
-	Instance.add_update_tag(host.instance_id,"SYSID",host.sysid.name)
-	Instance.update_instances
-    Instance.update_volume_tags(host.instance_id,"Name",host.hostname)
-    Instance.update_volume_tags(host.instance_id,"SYSID",host.sysid.name)
-	Instance.update_volume_tags(host.instance_id,"host_id",host.id)
-	ec2.start_instances(instance_ids: [instance.instance_id])
-	
+
+
+  def self.replace_host(host_id)
+		host = Host.include_all.find(host_id)
+		instance = host.instance
+		region = host.instance.availability_zone.chop
+		aws_account = AwsAccount.find_by_account_number(host.environment.aws_account_id)
+		ec2 = setup_ec2(aws_account.id, region)
+		begin
+			instance_status = ec2.describe_instance_status(instance_ids: [host.instance.instance_id]).instance_statuses.first.instance_state.name
+			eni = InstanceEniMapping.where(instance_id: host.instance.instance_id)
+			eni_attachment_id = InstanceEni.find_by_network_interface_id(eni.first.network_interface_id).attachment_id
+			security_group = InstanceSecurityGroupMapping.where(instance_id: instance.instance_id).first.group_id
+		rescue
+			puts "instance is not running, or terminated"
+		end
+		# build mapping of drives
+		###
+		instance_volumes = Instance.mount_map(instance.instance_id)
+		ec2.stop_instances(instance_ids: [host.instance.instance_id])
+		ec2.wait_until(:instance_stopped, instance_ids: [host.instance.instance_id])
+		instance_volumes.each do |mount,vol|
+			 ec2.detach_volume(instance_id: host.instance.instance_id, volume_id: vol, force: true)
+		end
+		ec2.terminate_instances(instance_ids: [host.instance.instance_id])
+		ec2.wait_until(:instance_terminated, instance_ids: [host.instance.instance_id])
+		begin
+			ec2.delete_network_interface(network_interface_id: eni.first.network_interface_id)
+		rescue
+			puts "ENI already Deleted"
+		end
+		sleep 5
+		resp = Instance.create_instance(aws_account.id, instance.availability_zone,instance.instance_type,instance.key_name,security_group,instance.subnet_id,instance.private_ip_address,instance.image_id)
+		h = Host.find(host.id)
+		h.instance_id = resp.instances.first.instance_id
+		h.save
+		instance.instance_id = resp.instances.first.instance_id
+		instance.save
+		host.reload
+		ec2.wait_until(:instance_running, instance_ids: [host.instance.instance_id])
+		ec2.stop_instances(instance_ids: [host.instance.instance_id])
+		ec2.wait_until(:instance_stopped, instance_ids: [host.instance.instance_id])
+		base_vol =  ec2.describe_instances(instance_ids: [host.instance.instance_id]).reservations.first.instances.first.block_device_mappings.first.ebs.volume_id
+		ec2.detach_volume(instance_id: host.instance.instance_id, volume_id: base_vol, force: true)
+		ec2.wait_until(:volume_available, volume_ids: [base_vol])
+		ec2.delete_volume(volume_id: base_vol)
+		begin
+		ec2.wait_until(:volume_deleted, volume_ids: [base_vol])
+		rescue
+			Rails.logger.debug "Volumes Data already Deleted"
+		end
+		instance_volumes.each do |mount,vol|
+			 ec2.attach_volume(instance_id: host.instance.instance_id, volume_id: vol, device: mount)
+		end
+		ec2.start_instances(instance_ids: [instance.instance_id])
+		sleep 30
+		Instance.update_instances
+		Instance.tag_resources(instance.instance_id)
   end
   
   

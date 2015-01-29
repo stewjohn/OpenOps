@@ -6,10 +6,12 @@ class AwsAccount < ActiveRecord::Base
   has_many :aws_elastic_ips
   has_many :aws_internet_gateways
   has_many :aws_key_pairs
+  has_many :aws_security_groups
 
-  
+  validates :account_name, :access_key_id, :secrete_access_key, :account_number, presence: true
+
   def self.with_vpc
-    self.includes(:aws_vpcs,:aws_regions)
+    self.includes(:aws_vpcs,:aws_regions,:aws_security_groups)
   end
   
    def self.only_vpc

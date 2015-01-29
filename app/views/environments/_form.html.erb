@@ -39,29 +39,30 @@
 
           </div>
         </div>
+
         <div class="form-group">
           <%= f.label "DR VPC", :class => "col-sm-3 control-label" %>
           <div class="col-sm-3">
             <select id="c" name="environment[dr_vpc_id]" class="select2" data-allow-clear="true" data-placeholder="Select DR VPC...">
-           
-			
 			</select>
+          </div>
+        </div>
 
+        <div class="form-group">
+          <%= f.label "DR VPC Security Group", :class => "col-sm-3 control-label" %>
+          <div class="col-sm-3">
+            <select id="d" name="environment[dr_security_group_id]" class="select2" data-allow-clear="true" data-placeholder="Select DR VPC...">
+            </select>
           </div>
         </div>
 
 
         <div class="form-group">
           <label class="col-sm-3 control-label">DR</label>
-
           <div class="col-sm-6">
-
             <div class="bs-example">
-
                 <input name="environment[dr_enabled]" data-off-color="danger" data-on-color="success" data-on-text="DR"  data-off-text="NO DR" type="checkbox" <%= 'checked' if @environment.dr_enabled%>>
-
             </div>
-
           </div>
         </div>
 
@@ -94,7 +95,7 @@
     <% end %>
 
     <script>
-        var env_data = [ '<%= @environment.aws_account_id %>', '<%= @environment.primary_vpc_id %>',  '<%= @environment.dr_vpc_id %>']
+        var env_data = [ '<%= @environment.aws_account_id %>', '<%= @environment.primary_vpc_id %>',  '<%= @environment.dr_vpc_id %>', '<%= @environment.dr_security_group_id %>']
         var data = [ // The dat
                 <%  length = @accounts.length
                     @accounts.each_with_index do |account, index|
@@ -106,6 +107,15 @@
                             vpa = Array.new
                             vpa.push vpc.vpc_id
                             vpa.push vpc.aws_region.name
+                            vpa.push vpc.cidr_block
+                            vpc_sg = Array.new
+                            vpc.aws_security_groups.each do | sg|
+                                vsg = Array.new
+                                vsg.push sg.group_id
+                                vsg.push sg.group_name
+                                vpc_sg.push vsg
+                            end
+                            vpa.push vpc_sg
                             vpca.push vpa
                         end
                         aca.push vpca %>
@@ -116,23 +126,21 @@
         $a = $('#a'); // The dropdowns
         $b = $('#b');
         $c = $('#c');
+        $d = $('#d');
 
         for(var i = 0; i < data.length; i++) {
             var first = data[i][0];
             $a.append($("<option>"). // Add options
-
                     attr("value", data[i][1]).
                     data("sel", i).
                     text(first));
-
-
         }
 
 
         $a.change(function() {
             var index = $(this).children('option:selected').data('sel');
             var second = data[index][2]; // The second-choice data
-
+            var sg = data[index][2][3]
             $b.html(''); // Clear existing options in second dropdown
             $c.html('');
 
@@ -140,16 +148,36 @@
                 $b.append($("<option>"). // Add options
                         attr("value",second[j][0]).
                         data("sel", j).
-                        text(second[j][1] + ' - ' + second[j][0]));
+                        text(second[j][1] + ' - ' + second[j][0] + ' - ' + second[j][2]));
                 $c.append($("<option>"). // Add options
                         attr("value",second[j][0]).
                         data("sel", j).
-                        text(second[j][1] + ' - ' + second[j][0]));
+                        text(second[j][1] + ' - ' + second[j][0] + ' - ' + second[j][2]));
+
             }
         }).change(); // Trigger once to add options at load of first choice
+
+        $c.change(function() {
+            $d.html('');
+            var index_1 = $a.children('option:selected').data('sel');
+            var index_2 = $(this).children('option:selected').data('sel');
+
+            var sg = data[index_1][2][index_2][3]
+            for (var j = 0; j < sg.length; j++) {
+                $d.append($("<option>"). // Add options
+                        attr("value",sg[j][0]).
+                        data("sel", j).
+                        text(sg[j][0] + ' - ' + sg[j][1]));
+            }
+        }).change();
+
+
+
+
         $a.val(env_data[0]);
-        $b.val(env_data[1])
+        $b.val(env_data[1]);
         $c.val(env_data[2]);
+        $d.val(env_data[3]);
     </script>
 
 

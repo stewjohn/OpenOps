@@ -1,0 +1,163 @@
+<script type="text/javascript">
+    jQuery(document).ready(function($)
+    {
+
+    // Sparkline Charts
+$(".top-apps").sparkline('html', {
+type: 'line',
+width: '50px',
+height: '15px',
+lineColor: '#ff4e50',
+fillColor: '',
+lineWidth: 2,
+spotColor: '#a9282a',
+minSpotColor: '#a9282a',
+maxSpotColor: '#a9282a',
+highlightSpotColor: '#a9282a',
+highlightLineColor: '#f4c3c4',
+spotRadius: 2,
+drawNormalOnTop: true
+});
+
+$(".monthly-sales").sparkline([1,5,6,7,10,12,16,11,9,8.9,8.7,7,8,7,6,5.6,5,7,5,4,5,6,7,8,6,7,6,3,2], {
+type: 'bar',
+barColor: '#ff4e50',
+height: '55px',
+width: '100%',
+barWidth: 8,
+barSpacing: 1
+});
+
+$(".pie-chart").sparkline([2.5,3,2], {
+type: 'pie',
+width: '95',
+height: '95',
+sliceColors: ['#ff4e50','#db3739','#a9282a']
+});
+
+
+$(".daily-visitors").sparkline([1,5,5.5,5.4,5.8,6,8,9,13,12,10,11.5,9,8,5,8,9], {
+type: 'line',
+width: '100%',
+height: '55',
+lineColor: '#ff4e50',
+fillColor: '#ffd2d3',
+lineWidth: 2,
+spotColor: '#a9282a',
+minSpotColor: '#a9282a',
+maxSpotColor: '#a9282a',
+highlightSpotColor: '#a9282a',
+highlightLineColor: '#f4c3c4',
+spotRadius: 2,
+drawNormalOnTop: true
+});
+
+
+$(".stock-market").sparkline([1,5,6,7,10,12,16,11,9,8.9,8.7,7,8,7,6,5.6,5,7,5], {
+type: 'line',
+width: '100%',
+height: '55',
+lineColor: '#ff4e50',
+fillColor: '',
+lineWidth: 2,
+spotColor: '#a9282a',
+minSpotColor: '#a9282a',
+maxSpotColor: '#a9282a',
+highlightSpotColor: '#a9282a',
+highlightLineColor: '#f4c3c4',
+spotRadius: 2,
+drawNormalOnTop: true
+});
+
+
+$("#calendar").fullCalendar({
+header: {
+left: '',
+right: '',
+},
+
+firstDay: 1,
+height: 200,
+});
+});
+
+
+function getRandomInt(min, max)
+{
+return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+</script>
+
+
+<div class="row">
+    <div class="col-md-3 col-sm-6">
+        <div class="tile-stats tile-white stat-tile">
+            <h3>15% more</h3>
+            <p>Monthly visitor statistics</p>
+            <span class="daily-visitors"></span>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+        <div class="tile-stats tile-white stat-tile">
+            <h3>32 Sales</h3>
+            <p>Avg. Sales per day</p>
+            <span class="monthly-sales"></span>
+        </div>
+    </div>
+
+
+    <div class="col-md-3 col-sm-6">
+        <div class="tile-stats tile-white stat-tile">
+            <h3>-0.0102</h3>
+            <p>Stock Market</p>
+            <span class="stock-market"></span>
+        </div>
+    </div>
+
+
+    <div class="col-md-3 col-sm-6">
+        <div class="tile-stats tile-white stat-tile">
+            <h3>61.5%</h3>
+            <p>US Dollar Share</p>
+            <span class="pie-chart"></span>
+        </div>
+    </div>
+
+</div>
+
+<br />
+
+<div class="row">
+<div class="col-md-9">
+
+
+
+
+
+</div>
+
+
+
+<div class="col-md-3">
+  <div class="tile-stats tile-neon-red">
+    <div class="icon"><i class="entypo-chat"></i></div>
+    <div class="num" data-start="0" data-end="124" data-postfix="" data-duration="1400" data-delay="0">0</div>
+
+    <h3></h3>
+    <p>New  today</p>
+  </div>
+
+  <br />
+
+  <div class="tile-stats tile-primary">
+    <div class="icon"><i class="entypo-users"></i></div>
+    <div class="num" data-start="0" data-end="213" data-postfix="" data-duration="1400" data-delay="0">0</div>
+
+    <h3>New</h3>
+    <p>Statistics this week</p>
+  </div>
+
+
+</div>
+</div>

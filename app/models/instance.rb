@@ -6,32 +6,40 @@ class Instance < ActiveRecord::Base
   has_many :instance_block_device_mappings, primary_key: 'instance_id', foreign_key: 'instance_id'
   has_one :aws_key_pair, primary_key: "key_name", foreign_key: 'key_name'
   has_many :instance_security_group_mappings, primary_key: 'instance_id', foreign_key: 'instance_id'
-  
-  
-  
-  
-  validates :instance_id, :state, :instance_type, :launch_time,
-            :architecture, :root_device_type, :root_device_name,
-            :virtualization_type, :client_token, :hypervisor, presence: true
+
 
 
   def self.with_map
 	self.joins(:instance_block_device_mappings)
   end
 
-  def self.volumes(instance_id) 
+  def self.tag_resources(instance_id)
+    host = Host.include_all.find_by_instance_id(instance_id)
+    if host.nil?
+      host = Host.include_all.find_by_dr_instance_id(instance_id)
+    end
+    Instance.add_update_tag(instance_id,"Name",host.hostname)
+    Instance.add_update_tag(instance_id,"SYSID",host.sysid.name)
+    Instance.update_volume_tags(instance_id,"Name",host.hostname)
+    Instance.update_volume_tags(instance_id,"SYSID",host.sysid.name)
+    Instance.update_volume_tags(instance_id,"host_id",host.id)
+
+
+  end
+
+  def self.volumes(instance_id)
       vols = Array.new 
       Instance.with_map.find_by_instance_id(instance_id).instance_block_device_mappings.select(:volume_id){|m|  vols.push m.volume_id}
       return vols 
   end
 
-  def self.create_instance(account_id,az,size,key,security_group,subnet_id, priv_ip)
+  def self.create_instance(account_id,az,size,key,security_group,subnet_id, priv_ip,ami_id)
 	region = az.chop
 	puts region
 	ec2 = setup_ec2(account_id,region)
 	resp = ec2.run_instances(
 	  # required
-	  image_id: "ami-bc8d18d4",
+	  image_id: ami_id,
 	  # required
 	  min_count: 1,
 	  # required
@@ -49,8 +57,28 @@ class Instance < ActiveRecord::Base
 	  private_ip_address: priv_ip
 	)
   end
-  
-  
+
+  def self.restore_map(instance_id)
+    restore_volumes = Hash.new
+    mounts = self.mount_map(instance_id)
+    mounts.each do |mount,orig_vol|
+      restore_volumes["#{mount}"] = EbsSnapshot.where(replicant_of: orig_vol).last.snapshot_id
+    end
+    restore_volumes
+  end
+
+
+
+
+  def self.mount_map(instance_id)
+    # build mapping of drives
+    ###
+    instance_volumes = Hash.new
+    InstanceBlockDeviceMapping.where(instance_id: instance_id).each do |map|
+      instance_volumes["#{map.device_name}"] = map.volume_id
+    end
+    instance_volumes
+  end
   
   def self.reboot(instance_id)
 	  instance = Instance.joins(:aws_account,:aws_region).find_by_instance_id(instance_id)
@@ -62,16 +90,16 @@ class Instance < ActiveRecord::Base
   
   
 
-  def self.add_update_tag(instance, key, value) 
+  def self.add_update_tag(instance, key, value)
     instance = Instance.joins(:aws_account,:aws_region).find_by_instance_id(instance)
-	creds = Aws::Credentials.new(instance.aws_account.access_key_id, instance.aws_account.secrete_access_key)
-	ec2 = Aws::EC2::Client.new(region: instance.aws_region.name, credentials: creds, http_proxy: PROXY)
-	ec2.create_tags(resources: ["#{instance.instance_id}"], tags: [{key: "#{key}", value: "#{value}"}])
+	  creds = Aws::Credentials.new(instance.aws_account.access_key_id, instance.aws_account.secrete_access_key)
+	  ec2 = Aws::EC2::Client.new(region: instance.aws_region.name, credentials: creds, http_proxy: PROXY)
+	  ec2.create_tags(resources: ["#{instance.instance_id}"], tags: [{key: "#{key}", value: "#{value}"}])
   end 
 
   def self.update_volume_tags(instance_id, key, value)
         instance = Instance.joins(:aws_account,:aws_region).find_by_instance_id(instance_id)
-	vols = Instance.volumes(instance_id)
+	      vols = Instance.volumes(instance_id)
         creds = Aws::Credentials.new(instance.aws_account.access_key_id, instance.aws_account.secrete_access_key)
         ec2 = Aws::EC2::Client.new(region: instance.aws_region.name, credentials: creds, http_proxy: PROXY)
         ec2.create_tags(resources: vols, tags: [{key: "#{key}", value: "#{value}"}])
@@ -83,11 +111,12 @@ class Instance < ActiveRecord::Base
   def self.update_instances
     AwsAccount.all.each do |account|
       AwsRegion.all.each do |aws_region |
-        creds = Aws::Credentials.new(account.access_key_id, account.secrete_access_key)
-        ec2 = Aws::EC2::Client.new(region: aws_region.name, credentials: creds, http_proxy: PROXY)
+        ec2 = setup_ec2(account.id, aws_region.name)
         ec2.describe_instances.reservations.each do | reservation |
           instances = reservation.instances.first
           saved_instance = Instance.where(instance_id: instances.instance_id).first_or_initialize
+          saved_instance.image_id = instances.image_id.to_s
+          puts instances.image_id
           saved_instance.owner_id = reservation.owner_id
           saved_instance.state_code = instances.state.code
           saved_instance.state = instances.state.name
@@ -110,6 +139,7 @@ class Instance < ActiveRecord::Base
           saved_instance.source_dest_check = instances.source_dest_check
           saved_instance.hypervisor = instances.hypervisor
           saved_instance.ebs_optimized = instances.ebs_optimized
+
           saved_instance.save
           puts saved_instance.errors.messages
           #

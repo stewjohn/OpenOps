@@ -11,20 +11,28 @@ class EbsVolume < ActiveRecord::Base
 	instance = Instance.joins(:aws_region).find_by_instance_id(host.instance_id) 
 	vols = Instance.volumes(host.instance_id)
 	creds = Aws::Credentials.new(env.aws_account.access_key_id, env.aws_account.secrete_access_key)
-    ec2 = Aws::EC2::Client.new(region: instance.aws_region.name, credentials: creds, http_proxy: PROXY)
+  ec2 = Aws::EC2::Client.new(region: instance.aws_region.name, credentials: creds, http_proxy: PROXY)
 	vols.each do |vol| 
 		snap = ec2.create_snapshot(volume_id: vol)
-		EbsSnapshot.create(snapshot_id: snap.snapshot_id, volume_id: snap.volume_id, state: snap.state, 
-				   start_time: snap.start_time, progress: 0, owner_id: snap.owner_id, description: snap.description,
-				   volume_size: snap.volume_size, encrypted: snap.encrypted, replicated: false)
+    unless snap.snapshot_id.nil?
+      EbsSnapshot.create(snapshot_id: snap.snapshot_id, volume_id: snap.volume_id, state: snap.state,
+               start_time: snap.start_time, progress: 0, owner_id: snap.owner_id, description: snap.description,
+               volume_size: snap.volume_size, encrypted: snap.encrypted, replicated: false)
 
-        	ec2.create_tags(resources: ["#{snap.snapshot_id}"], tags: [{key: "Name", value: "#{host.hostname}"}])
-	        ec2.create_tags(resources: ["#{snap.snapshot_id}"], tags: [{key: "SYSID", value: "#{host.sysid.name}"}])
-        	ec2.create_tags(resources: ["#{snap.snapshot_id}"], tags: [{key: "host_id", value: "#{host.id}"}])
-	end
-  host.last_checkpoint = Time.now.utc
-  host.save 
+              ec2.create_tags(resources: ["#{snap.snapshot_id}"], tags: [{key: "Name", value: "#{host.hostname}"}])
+              ec2.create_tags(resources: ["#{snap.snapshot_id}"], tags: [{key: "SYSID", value: "#{host.sysid.name}"}])
+              ec2.create_tags(resources: ["#{snap.snapshot_id}"], tags: [{key: "host_id", value: "#{host.id}"}])
+      end
+      host.last_checkpoint = Time.now.utc
+      host.save
+    end
   end
+
+  def self.setup_volume(account_id,region,snapshot_id)
+    ec2 = setup_ec2(account_id,region)
+    volume = EbsVolume.find_by_volume_id(volume_id)
+  end
+
 
   def self.update_volumes
     AwsAccount.all.each do |account|

@@ -11,6 +11,18 @@ has_many :aws_security_group_pairs, foreign_key: 'security_group_id', primary_ke
 has_many :aws_security_group_tags, foreign_key: 'security_group_id', primary_key: 'group_id'
 
 
+	def self.include_all
+		self.includes(:aws_security_group_egresses,:aws_security_group_ingresses,:aws_security_group_pairs,:aws_security_group_ranges,:aws_security_group_tags)
+	end
+
+	def self.replicate_dr_sg(vpc, dr_vpc_id)
+		sg = AwsSecurityGroup.where
+
+
+
+
+	end
+
 	def self.update_groups
 		AwsAccount.all.each do |account|
 			AwsRegion.all.each do |aws_region|
@@ -21,6 +33,7 @@ has_many :aws_security_group_tags, foreign_key: 'security_group_id', primary_key
 				saved_sg.owner_id = sg.owner_id 
 				saved_sg.group_name = sg.group_name 
 				saved_sg.description = sg.description
+				saved_sg.vpc_id = sg.vpc_id
 				saved_sg.save 
 				sg_array.push sg.group_id 
 				#

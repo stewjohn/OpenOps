@@ -12,6 +12,7 @@ gem 'chartkick'
 gem 'delayed_job_active_record'
 gem 'net-ssh'
 gem 'daemons'
+gem 'netaddr'
 # chef APIS 
 gem 'ridley'
 gem 'chef-api'

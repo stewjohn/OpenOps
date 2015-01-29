@@ -1,5 +1,5 @@
 class HostsController < ApplicationController
-  before_action :set_host, only: [:show, :edit, :update, :destroy, :snapshot, :reboot]
+  before_action :set_host, only: [:show, :edit, :update, :destroy, :snapshot, :reboot, :replace_instance]
   add_breadcrumb 'Hosts', '/hosts'
   # GET /hosts
   # GET /hosts.json
@@ -10,13 +10,14 @@ class HostsController < ApplicationController
   # GET /hosts/1
   # GET /hosts/1.json
   def show
-    @instance = Instance.find_by_instance_id(@host.instance_id)
-    @instance_eni_mappings = InstanceEniMapping.joins(:instance_eni).where(instance_id: @host.instance_id )
-    @instance_block_device_mappings = InstanceBlockDeviceMapping.join_all.where(instance_id: @host.instance_id)
-    @ebs_snapshots =  EbsSnapshot.latest_snaps(@host.instance_id).order(created_at: :desc).limit(5)
+  @instance = Instance.find_by_instance_id(@host.instance_id)
+  @instance_eni_mappings = InstanceEniMapping.joins(:instance_eni).where(instance_id: @host.instance_id )
+  @instance_block_device_mappings = InstanceBlockDeviceMapping.join_all.where(instance_id: @host.instance_id)
+  @ebs_snapshots =  EbsSnapshot.latest_snaps(@host.instance_id).order(created_at: :desc).limit(5)
 	vols = Instance.volumes(@host.instance_id)
 	@instance_tags = InstanceTag.where(instance_id: @host.instance_id)
 	@dr_snapshots = EbsSnapshot.where(replicant_of: vols).order(created_at: :desc).limit(5)
+  @dr_instance = Instance.find_by_instance_id(@host.dr_instance_id)
 	
   end
 
@@ -26,6 +27,7 @@ class HostsController < ApplicationController
     @environments = Environment.all
     @sysids = Sysid.all
     @instances = Instance.where(host_id: nil, state: "running")
+
 
   end
 
@@ -44,14 +46,14 @@ class HostsController < ApplicationController
     sysid = Sysid.find(@host.sysid_id)
     respond_to do |format|
       if @host.save
-	instance.host_id = @host.id
-	instance.save
-	Instance.add_update_tag(@host.instance_id,"Name",@host.hostname)
-	Instance.add_update_tag(@host.instance_id,"SYSID",sysid.name)
-    Instance.update_volume_tags(@host.instance_id,"Name",@host.hostname)
-    Instance.update_volume_tags(@host.instance_id,"SYSID",sysid.name)
-	Instance.update_volume_tags(@host.instance_id,"host_id",@host.id)
-	format.html { redirect_to @host, notice: 'Host was successfully created.' }
+        instance.host_id = @host.id
+        instance.save
+        Instance.add_update_tag(@host.instance_id,"Name",@host.hostname)
+        Instance.add_update_tag(@host.instance_id,"SYSID",sysid.name)
+        Instance.update_volume_tags(@host.instance_id,"Name",@host.hostname)
+        Instance.update_volume_tags(@host.instance_id,"SYSID",sysid.name)
+        Instance.update_volume_tags(@host.instance_id,"host_id",@host.id)
+        format.html { redirect_to @host, notice: 'Host was successfully created.' }
         format.json { render :show, status: :created, location: @host }
       else
         format.html { render :new }
@@ -66,9 +68,9 @@ class HostsController < ApplicationController
     sysid = Sysid.find(@host.sysid_id)
     respond_to do |format|
       if @host.update(host_params)
-	Instance.add_update_tag(@host.instance_id,"Name",@host.hostname)
+        Instance.add_update_tag(@host.instance_id,"Name",@host.hostname)
         Instance.add_update_tag(@host.instance_id,"SYSID",sysid.name)
-	Instance.update_volume_tags(@host.instance_id,"Name",@host.hostname)
+        Instance.update_volume_tags(@host.instance_id,"Name",@host.hostname)
         Instance.update_volume_tags(@host.instance_id,"SYSID",sysid.name)
         Instance.update_volume_tags(@host.instance_id,"host_id",@host.id)
         format.html { redirect_to @host, notice: 'Host was successfully updated.' }
@@ -92,15 +94,20 @@ class HostsController < ApplicationController
 #####
 
   def snapshot
-	EbsVolume.create_snaps(@host.id)
+	method_process(EbsVolume.create_snaps(@host.id))
 	redirect_to :back
   end
   
   def reboot
-	Instance.reboot(@host.instance_id)
+	method_process(Instance.reboot(@host.instance_id))
 	redirect_to :back
   end
-  
+
+  def replace_instance
+      method_process(Host.delay.replace_host(@host.id))
+      redirect_to :back
+  end
+
   
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -108,8 +115,18 @@ class HostsController < ApplicationController
       @host = Host.find(params[:id])
     end
 
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def host_params
       params.require(:host).permit(:hostname, :environment_id, :aws_account_id, :sysid, :chef_environment_id, :host_state_id, :sysid_id, :instance_id)
     end
+
+    def method_process(method)
+     if method
+      session[:success_msg] = "API Call successfully Submitted."
+    else
+      session[:error_msg] = "There was an error processing this request"
+    end
+
+end
 end

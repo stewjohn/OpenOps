@@ -22,9 +22,9 @@
         <td><%= host.sysid.name %></td>
         <td><%= host.chef_environment_id %></td>
         <td><%= host.instance_id %></td>
-        <td><%= link_to 'Show', host %></td>
-        <td><%= link_to 'Edit', edit_host_path(host) %></td>
-        <td><%= link_to 'Destroy', host, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', host , :class =>  'btn btn-info'%></td>
+        <td><%= link_to 'Edit', edit_host_path(host), :class =>  'btn btn-green' %></td>
+        <td><%= button_to 'Destroy', host, method: :delete, data: { confirm: 'Are you sure?' }, :class =>  'btn btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>
